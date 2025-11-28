@@ -655,14 +655,20 @@
   };
 
   // 점수 → 티어
-  function scoreToTier(score, max) {
+  // 점수 → 롤 9티어
+function scoreToTier(score, max) {
     const ratio = (score / max) * 100;
-    if (ratio <= 20) return 'D';
-    if (ratio <= 40) return 'C';
-    if (ratio <= 65) return 'B';
-    if (ratio <= 85) return 'A';
-    return 'S';
-  }
+
+    if (ratio < 20) return "아이언";
+    if (ratio < 40) return "브론즈";
+    if (ratio < 60) return "실버";
+    if (ratio < 75) return "골드";
+    if (ratio < 85) return "플래티넘";
+    if (ratio < 92) return "다이아";
+    if (ratio < 97) return "마스터";
+    if (ratio < 99) return "그랜드마스터";
+    return "챌린저";
+}
 
   // ----------------------------
   // 질문 DOM 생성
