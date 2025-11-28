@@ -150,21 +150,21 @@ const tierMeta = {
   }
 };
 
-// ==============================
+// ================================
 // 점수(%) → 9티어 변환
-// ratio: 0 ~ 100 ( % )
+// ================================
 function scoreToTier(ratio) {
-  // 안전하게 반올림
-  const r = Math.round(ratio);
+  const score = Math.round((ratio / 100) * 60); // 실제 점수로 환산
 
-  if (r <= 13) return "아이언";        // 1–8점
-  if (r <= 36) return "브론즈";        // 9–22점
-  if (r <= 60) return "실버";          // 23–36점
-  if (r <= 73) return "골드";          // 37–44점
-  if (r <= 81) return "다이아";        // 45–49점
-  if (r <= 88) return "마스터";        // 50–53점
-  if (r <= 93) return "그랜드마스터";  // 54–56점
-  return "챌린저";                     // 57–60점
+  if (score <= 8) return "아이언";             // 1~8
+  if (score <= 21) return "브론즈";            // 9~21
+  if (score <= 34) return "실버";              // 22~34
+  if (score <= 40) return "골드";              // 35~40
+  if (score <= 45) return "플래티넘";          // 41~45
+  if (score <= 50) return "다이아";            // 46~50
+  if (score <= 53) return "마스터";            // 51~53
+  if (score <= 57) return "그랜드마스터";      // 54~57
+  return "챌린저";                             // 58~60
 }
 
 // ==============================
