@@ -152,21 +152,26 @@ const tierMeta = {
 
 // ================================
 // 점수(%) → 9티어 변환
-// ================================
-function scoreToTier(ratio) {
-  const score = Math.round((ratio / 100) * 60); // 실제 점수로 환산
+// 점수(개수) 또는 비율 → 9티어 변환
+function scoreToTier(value) {
+  let score;
 
-  if (score <= 8) return "아이언";             // 1~8
-  if (score <= 21) return "브론즈";            // 9~21
-  if (score <= 34) return "실버";              // 22~34
-  if (score <= 40) return "골드";              // 35~40
-  if (score <= 45) return "플래티넘";          // 41~45
-  if (score <= 50) return "다이아";            // 46~50
-  if (score <= 53) return "마스터";            // 51~53
-  if (score <= 57) return "그랜드마스터";      // 54~57
-  return "챌린저";                             // 58~60
+  if (value <= 60) {
+    score = value;
+  } else {
+    score = Math.round((value / 100) * 60);
+  }
+
+  if (score <= 8) return "아이언";          // 1–8
+  if (score <= 21) return "브론즈";        // 9–21
+  if (score <= 34) return "실버";          // 22–34
+  if (score <= 39) return "골드";          // 35–39
+  if (score <= 45) return "플래티넘";      // 40–45
+  if (score <= 50) return "다이아";        // 46–50
+  if (score <= 53) return "마스터";        // 51–53
+  if (score <= 57) return "그랜드마스터";  // 54–57
+  return "챌린저";                         // 58–60
 }
-
 // ==============================
 //  질문 DOM 생성
 // ==============================
