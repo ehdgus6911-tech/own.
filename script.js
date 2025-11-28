@@ -151,19 +151,19 @@ const tierMeta = {
 };
 
 // ==============================
-//  점수 → 9티어 변환
-// ==============================
-// ratio: 0 ~ 100 (%)
+// 점수(%) → 9티어 변환
 function scoreToTier(ratio) {
-  if (ratio <= 10) return "아이언";
-  if (ratio <= 30) return "브론즈";
-  if (ratio <= 50) return "실버";
-  if (ratio <= 65) return "골드";
-  if (ratio <= 80) return "플래티넘";
-  if (ratio <= 90) return "다이아";
-  if (ratio <= 94) return "마스터";
-  if (ratio <= 97) return "그랜드마스터";
-  return "챌린저";
+  const maxScore = 60;
+  const score = Math.round((ratio / 100) * maxScore);
+
+  if (score <= 8)  return "아이언";         // 1–8
+  if (score <= 22) return "브론즈";         // 9–22
+  if (score <= 36) return "실버";           // 23–36
+  if (score <= 44) return "골드";           // 37–44
+  if (score <= 49) return "다이아";         // 45–49
+  if (score <= 53) return "마스터";         // 50–53
+  if (score <= 56) return "그랜드마스터";   // 54–56
+  return "챌린저";                          // 57–60
 }
 
 // ==============================
