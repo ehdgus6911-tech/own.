@@ -178,6 +178,18 @@ function scoreToTierCategory(count, max) {
   if (count === 9) return '마스터';       // 9/10
   return '챌린저';                        // 10/10
 }
+// 2) 영역별 점수(0~10개 맞힌 개수)용 - 카테고리 티어
+function scoreToTierCategory(count, max) {
+  // max는 보통 10문항
+  if (count <= 1) return '아이언';        // 0~1/10
+  if (count <= 3) return '브론즈';        // 2~3/10
+  if (count <= 5) return '실버';          // 4~5/10
+  if (count === 6) return '골드';         // 6/10
+  if (count === 7) return '플래티넘';     // 7/10
+  if (count === 8) return '다이아';       // 8/10
+  if (count === 9) return '마스터';       // 9/10
+  return '챌린저';                        // 10/10
+}
 
 // ==============================
 //  질문 DOM 생성
@@ -273,9 +285,10 @@ function calculateResults() {
     answeredCount += 1;
   }
 
-  const maxScore = answeredCount;          // 전체 문항 수 (60)
-const overallTier = scoreToTierTotal(totalScore); // 전체 점수로 티어 계산
-
+  const maxScore = answeredCount;                 // 전체 문항 수
+const overallTier = scoreToTierTotal(totalScore); // 전체 티어 계산
+const overallRatio = (totalScore / maxScore) * 100; // 퍼센트 표시용
+  
   // 영역별 점수
   const categoryResults = [];
 
@@ -292,7 +305,7 @@ const overallTier = scoreToTierTotal(totalScore); // 전체 점수로 티어 계
 
     const catMax = indices.length;
 const catRatio = (catScore / catMax) * 100;          // 이건 퍼센트 표시용
-const catTier = scoreToTierCategory(catScore, catMax); // 티어는 맞힌 개수 기준
+const catTier = scoreToTierCategory(catRatio);
 
     categoryResults.push({
       id: cat.id,
