@@ -149,23 +149,36 @@ const tierMeta = {
     desc: "상위 1% 감도. OWN. 입장에선 롤 모델급 관리력입니다. 이제는 방향 유지와 번아웃 방지가 핵심 과제예요."
   }
 };
+// ================================
+// 점수 → 9티어 변환
+// ================================
 
-// ==============================
-// 점수(%) → 실점수(1~60) 변환 후 티어 판정
-// ==============================
-function scoreToTier(ratio) {
-  const score = Math.round((ratio / 100) * 60); // 퍼센트를 실점수로 변환
-
-  if (score <= 8)  return '아이언';        // 1–8
-  if (score <= 21) return '브론즈';        // 9–21
-  if (score <= 34) return '실버';          // 22–34
-  if (score <= 40) return '골드';          // 35–40
-  if (score <= 45) return '플래티넘';      // 41–45
-  if (score <= 50) return '다이아';        // 46–50
-  if (score <= 53) return '마스터';        // 51–53
-  if (score <= 57) return '그랜드마스터';  // 54–57
-  return '챌린저';                         // 58–60
+// 1) 전체 점수(0~60점)용 - 전체 티어
+function scoreToTierTotal(score) {
+  if (score <= 8)  return '아이언';       // 1~8
+  if (score <= 21) return '브론즈';       // 9~21
+  if (score <= 34) return '실버';         // 22~34
+  if (score <= 40) return '골드';         // 35~40
+  if (score <= 45) return '플래티넘';     // 41~45
+  if (score <= 50) return '다이아';       // 46~50
+  if (score <= 53) return '마스터';       // 51~53
+  if (score <= 57) return '그랜드마스터'; // 54~57
+  return '챌린저';                        // 58~60
 }
+
+// 2) 영역별 점수(0~10개 맞힌 개수)용 - 카테고리 티어
+function scoreToTierCategory(count, max) {
+  // max는 보통 10문항
+  if (count <= 1) return '아이언';        // 0~1/10
+  if (count <= 3) return '브론즈';        // 2~3/10
+  if (count <= 5) return '실버';          // 4~5/10
+  if (count === 6) return '골드';         // 6/10
+  if (count === 7) return '플래티넘';     // 7/10
+  if (count === 8) return '다이아';       // 8/10
+  if (count === 9) return '마스터';       // 9/10
+  return '챌린저';                        // 10/10
+}
+
 // ==============================
 //  질문 DOM 생성
 // ==============================
@@ -260,9 +273,8 @@ function calculateResults() {
     answeredCount += 1;
   }
 
-  const maxScore = answeredCount;
-  const overallRatio = (totalScore / maxScore) * 100;
-  const overallTier = scoreToTier(overallRatio);
+  const maxScore = answeredCount;          // 전체 문항 수 (60)
+const overallTier = scoreToTierTotal(totalScore); // 전체 점수로 티어 계산
 
   // 영역별 점수
   const categoryResults = [];
@@ -279,8 +291,8 @@ function calculateResults() {
     });
 
     const catMax = indices.length;
-    const catRatio = (catScore / catMax) * 100;
-    const catTier = scoreToTier(catRatio);
+const catRatio = (catScore / catMax) * 100;          // 이건 퍼센트 표시용
+const catTier = scoreToTierCategory(catScore, catMax); // 티어는 맞힌 개수 기준
 
     categoryResults.push({
       id: cat.id,
