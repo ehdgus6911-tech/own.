@@ -10,100 +10,567 @@
   <main class="site-main">
 
     <!-- =========================
-         1페이지 : 인트로
+         페이지 0 : 인트로
     ========================== -->
-    <section id="intro-page" class="page active">
+    <section id="page-intro" class="page active">
       <header class="site-header">
         <div class="logo">own.</div>
         <div class="tagline">당신만의 매력을, 숫자로 확인하는 첫 시작</div>
       </header>
 
       <section class="intro-card">
-        <h1>내 관리 티어는 몇 티어일까?</h1>
+        <h1>나의 관리 티어는 몇 티어일까?</h1>
         <p>
           헤어, 피부, 패션, 향, 운동, 디테일까지.<br />
-          60개의 질문으로 지금 나의 자기관리 수준을 체크합니다.
+          60개의 질문으로 지금 나의 자기관리 수준을 확인합니다.
         </p>
 
         <ul class="intro-bullets">
-          <li>간단한 예/아니요 체크</li>
-          <li>6개 영역별 티어와 총합 티어까지 한 번에</li>
-          <li>결과에 맞는 관리 가이드 & 제품 추천 경로 제공</li>
+          <li>간편 예/아니오 체크</li>
+          <li>6개 영역별 티어를 한 번에 보기</li>
+          <li>어디서부터 챙겨야 할지, 바로 로드맵 완성</li>
         </ul>
 
-        <div class="intro-tier-info">
-          <h2>OWN. 티어 시스템</h2>
-          <p>총 <strong>9개 티어</strong>가 있습니다.</p>
-          <p class="tier-list">
+        <div class="tier-info">
+          <p class="tier-info-title">9티어 시스템으로 확인해보세요.</p>
+          <p class="tier-info-list">
             아이언 · 브론즈 · 실버 · 골드 · 플래티넘 · 다이아 · 마스터 · 그랜드마스터 · 챌린저
           </p>
-          <p class="tier-note">
-            아이언에 가까울수록 방치된 상태,<br />
-            챌린저에 가까울수록 체계적인 자기관리 상위 1%에 가까운 상태를 의미합니다.
-          </p>
         </div>
 
-        <div class="intro-footer">
-          <button id="startBtn" class="primary-btn">관리 테스트 시작하기</button>
-          <p class="intro-note">약 3~5분 소요 · 회원가입/로그인 불필요</p>
-        </div>
-      </section>
-    </section>
-
-    <!-- =========================
-         2페이지 : 질문
-    ========================== -->
-    <section id="quiz-page" class="page">
-      <section class="question-section">
-        <h2 class="section-title">자기 관리 티어 테스트</h2>
-        <p class="section-sub">
-          각 문항을 읽고, 지금 나에게 더 가까운 쪽을 선택하세요.
+        <p class="intro-note">
+          * 모든 문항은 “지금의 나” 기준으로, 솔직하게 체크할수록 결과가 정확합니다.
         </p>
 
-        <div id="question-container" class="question-container"></div>
-
-        <div class="question-footer">
-          <button id="submitBtn" class="primary-btn wide">결과 보기</button>
-          <button id="backIntroBtn" class="secondary-btn">처음으로 돌아가기</button>
-          <p class="note">* 한 문항이라도 비어 있으면 결과가 나오지 않습니다.</p>
-        </div>
+        <button id="startBtn" class="primary-btn">관리 테스트 시작하기</button>
       </section>
     </section>
 
     <!-- =========================
-         3페이지 : 결과
+         공통 설명 블럭
     ========================== -->
-    <section id="result-page" class="page">
-      <section class="result-section">
-        <h2 class="section-title">당신의 자기관리 티어 결과</h2>
+    <section class="page page-common" id="page-skin">
+      <div class="step-header">
+        <span class="step">1 / 6</span>
+        <span class="step-label">피부 / 외모</span>
+      </div>
 
-        <div id="overall-result" class="overall-result"></div>
+      <h2 class="section-title">피부 / 외모 관리</h2>
+      <p class="section-desc">
+        세안, 보습, 선크림, 성분 이해까지. 가장 기본이면서도 티가 가장 잘 나는 파트입니다.
+      </p>
 
-        <h3 class="section-sub">영역별 상세 티어</h3>
-        <div id="category-results" class="category-results"></div>
-
-        <div class="product-cta">
-          <p>내 티어에 맞는 관리 제품이 궁금하다면?</p>
-          <a id="productLink" href="#" target="_blank" rel="noopener" class="product-link">
-            내 티어 맞춤 관리 제품 보러가기 →
-          </a>
+      <form class="question-list">
+        <!-- q1 ~ q10 -->
+        <div class="question">
+          <p>1. 나는 아침, 저녁으로 규칙적인 세안을 한다.</p>
+          <label><input type="radio" name="q1" value="1" /> 예</label>
+          <label><input type="radio" name="q1" value="0" /> 아니오</label>
         </div>
 
-        <div class="brand-block">
-          <p>
-            OWN.은 <strong>“나에게 맞는 관리”</strong>로<br />
-            나만의 매력을 완성해가는 과정을 함께합니다.
-          </p>
-          <p>
-            당신만의 매력을 찾고, 소유하세요.<br />
-            Own your attraction.
-          </p>
+        <div class="question">
+          <p>2. 나는 세안할 때 비누가 아니라, 폼클렌징 또는 오일클렌징을 사용한다.</p>
+          <label><input type="radio" name="q2" value="1" /> 예</label>
+          <label><input type="radio" name="q2" value="0" /> 아니오</label>
         </div>
 
-        <div class="result-footer">
-          <button id="retryBtn" class="secondary-btn">테스트 다시하기</button>
+        <div class="question">
+          <p>3. 나는 세안 후 기본 보습 제품(토너·로션·크림)을 하루 한 번 이상 반드시 바른다.</p>
+          <label><input type="radio" name="q3" value="1" /> 예</label>
+          <label><input type="radio" name="q3" value="0" /> 아니오</label>
         </div>
-      </section>
+
+        <div class="question">
+          <p>4. 나는 자외선 차단제(선크림)를 외출 시 꼭 바르며, 평소에도 신경 쓰는 편이다.</p>
+          <label><input type="radio" name="q4" value="1" /> 예</label>
+          <label><input type="radio" name="q4" value="0" /> 아니오</label>
+        </div>
+
+        <div class="question">
+          <p>5. 나는 내 피부타입(건성·지성·복합성)을 정확히 알고, 그에 맞는 제품을 꾸준히 사용한다.</p>
+          <label><input type="radio" name="q5" value="1" /> 예</label>
+          <label><input type="radio" name="q5" value="0" /> 아니오</label>
+        </div>
+
+        <div class="question">
+          <p>6. 나는 각질·진정·보습 관리를 주기적으로 하며 피부 컨디션을 일정하게 유지한다, 또는 유지하려고 노력한다.</p>
+          <label><input type="radio" name="q6" value="1" /> 예</label>
+          <label><input type="radio" name="q6" value="0" /> 아니오</label>
+        </div>
+
+        <div class="question">
+          <p>7. 나는 내 피부 톤(쿨/웜 + 파운데이션 호수)을 알고 있으며, 필요할 때 톤업·쿠션 등을 자연스럽게 사용할 수 있다.</p>
+          <label><input type="radio" name="q7" value="1" /> 예</label>
+          <label><input type="radio" name="q7" value="0" /> 아니오</label>
+        </div>
+
+        <div class="question">
+          <p>8. 나는 계절 변화, 시술 후, 트러블 발생 등 상황에 따라 사용하는 제품을 바꾸거나 홈케어 루틴을 조절할 수 있다.</p>
+          <label><input type="radio" name="q8" value="1" /> 예</label>
+          <label><input type="radio" name="q8" value="0" /> 아니오</label>
+        </div>
+
+        <div class="question">
+          <p>9. 나는 주요 화장품 성분(레티놀·나이아신아마이드·히알루론산·판테놀 등)을 어느 정도 알고, 내 피부 문제에 맞는 화장품을 고를 수 있다.</p>
+          <label><input type="radio" name="q9" value="1" /> 예</label>
+          <label><input type="radio" name="q9" value="0" /> 아니오</label>
+        </div>
+
+        <div class="question">
+          <p>10. 나는 필요할 때 피부과 시술·관리를 정기적 또는 주기적으로 받고 있다.</p>
+          <label><input type="radio" name="q10" value="1" /> 예</label>
+          <label><input type="radio" name="q10" value="0" /> 아니오</label>
+        </div>
+      </form>
+
+      <div class="nav-buttons">
+        <button class="secondary-btn" id="back-skin" disabled>이전으로</button>
+        <button class="primary-btn" id="next-skin">다음: 헤어 →</button>
+      </div>
+    </section>
+
+    <!-- =========================
+         페이지 2 : 헤어
+    ========================== -->
+    <section class="page" id="page-hair">
+      <div class="step-header">
+        <span class="step">2 / 6</span>
+        <span class="step-label">헤어</span>
+      </div>
+
+      <h2 class="section-title">헤어 관리</h2>
+      <p class="section-desc">
+        머리 모양은 이미지의 절반입니다. 컷, 펌, 스타일링, 탈모 관리까지 체크해봅니다.
+      </p>
+
+      <form class="question-list">
+        <!-- q11 ~ q20 -->
+        <div class="question">
+          <p>11. 나는 한 달에 한 번 이상 미용실에서 머리를 정리(컷트)한다.</p>
+          <label><input type="radio" name="q11" value="1" /> 예</label>
+          <label><input type="radio" name="q11" value="0" /> 아니오</label>
+        </div>
+
+        <div class="question">
+          <p>12. 나는 동네 아무 미용실이 아닌, 내가 선호하는 단골 미용실 / 주로 가는 곳이 있다.</p>
+          <label><input type="radio" name="q12" value="1" /> 예</label>
+          <label><input type="radio" name="q12" value="0" /> 아니오</label>
+        </div>
+
+        <div class="question">
+          <p>13. 나는 다운펌·볼륨펌·매직 등 컷트 외 시술을 한 번 이상 받아본 적이 있다.</p>
+          <label><input type="radio" name="q13" value="1" /> 예</label>
+          <label><input type="radio" name="q13" value="0" /> 아니오</label>
+        </div>
+
+        <div class="question">
+          <p>14. 나는 내 모질(직모·곱슬·반곱슬), 두상, 이마 라인의 특징을 어느 정도 알고 있다.</p>
+          <label><input type="radio" name="q14" value="1" /> 예</label>
+          <label><input type="radio" name="q14" value="0" /> 아니오</label>
+        </div>
+
+        <div class="question">
+          <p>15. 나는 나에게 가장 잘 맞는 대표 헤어스타일 1가지를 확신하며 꾸준히 유지해본 적이 있다.</p>
+          <label><input type="radio" name="q15" value="1" /> 예</label>
+          <label><input type="radio" name="q15" value="0" /> 아니오</label>
+        </div>
+
+        <div class="question">
+          <p>16. 나는 탈모 관리(약·두피 제품 등)를 하고 있거나, 탈모가 아니더라도 모발·두피 건강을 위해 꾸준히 관리하고 있다.</p>
+          <label><input type="radio" name="q16" value="1" /> 예</label>
+          <label><input type="radio" name="q16" value="0" /> 아니오</label>
+        </div>
+
+        <div class="question">
+          <p>17. 나는 손·롤빗·고데기 등을 이용해 기본 스타일링이 가능하며, 제품으로 일정한 퀄리티를 유지할 수 있다.</p>
+          <label><input type="radio" name="q17" value="1" /> 예</label>
+          <label><input type="radio" name="q17" value="0" /> 아니오</label>
+        </div>
+
+        <div class="question">
+          <p>18. 나는 뜨는 부위·눌리는 부위·볼륨이 필요한 구역을 알고 있으며, 스타일링 시 이를 의도적으로 조절할 수 있다.</p>
+          <label><input type="radio" name="q18" value="1" /> 예</label>
+          <label><input type="radio" name="q18" value="0" /> 아니오</label>
+        </div>
+
+        <div class="question">
+          <p>19. 나는 미용사를 기준으로 미용실을 선택하며, 소개해준 사람도 망하지 않을 정도로 ‘미용사 보는 눈’이 있다.</p>
+          <label><input type="radio" name="q19" value="1" /> 예</label>
+          <label><input type="radio" name="q19" value="0" /> 아니오</label>
+        </div>
+
+        <div class="question">
+          <p>20. 나는 “머리 어디서 했어?”, “머리 스타일 잘한다”, “미용실 추천해줘”라는 말을 들어본 적이 있다.</p>
+          <label><input type="radio" name="q20" value="1" /> 예</label>
+          <label><input type="radio" name="q20" value="0" /> 아니오</label>
+        </div>
+      </form>
+
+      <div class="nav-buttons">
+        <button class="secondary-btn" id="back-hair">← 이전: 피부</button>
+        <button class="primary-btn" id="next-hair">다음: 패션 →</button>
+      </div>
+    </section>
+
+    <!-- =========================
+         페이지 3 : 패션
+    ========================== -->
+    <section class="page" id="page-style">
+      <div class="step-header">
+        <span class="step">3 / 6</span>
+        <span class="step-label">패션 / 스타일</span>
+      </div>
+
+      <h2 class="section-title">패션 / 스타일</h2>
+      <p class="section-desc">
+        체형 이해, 기본템, 색 조합, 액세서리. “옷 잘 입는다”는 말이 나오는지 체크해봅니다.
+      </p>
+
+      <form class="question-list">
+        <!-- q21 ~ q30 -->
+        <div class="question">
+          <p>21. 나는 외출할 때 상황(출근·약속·데이트 등)에 맞춰 옷을 최소한 다르게 고른다.</p>
+          <label><input type="radio" name="q21" value="1" /> 예</label>
+          <label><input type="radio" name="q21" value="0" /> 아니오</label>
+        </div>
+
+        <div class="question">
+          <p>22. 나는 내 신체 단점(어깨, 기장, 비율 등)을 보완해주는 핏을 알고 있다.</p>
+          <label><input type="radio" name="q22" value="1" /> 예</label>
+          <label><input type="radio" name="q22" value="0" /> 아니오</label>
+        </div>
+
+        <div class="question">
+          <p>23. 나는 외출 전 전신거울로 핏, 구김, 전체 실루엣을 반드시 체크한다.</p>
+          <label><input type="radio" name="q23" value="1" /> 예</label>
+          <label><input type="radio" name="q23" value="0" /> 아니오</label>
+        </div>
+
+        <div class="question">
+          <p>24. 나는 내 신체 사이즈(어깨·가슴·허리·기장)를 cm 단위로 대략 알고 있다.</p>
+          <label><input type="radio" name="q24" value="1" /> 예</label>
+          <label><input type="radio" name="q24" value="0" /> 아니오</label>
+        </div>
+
+        <div class="question">
+          <p>25. 나는 옷장에 기본템 상·하의 각각 최소 3개 이상 갖추고 있다. (흰/검 티, 슬랙스, 데님 등)</p>
+          <label><input type="radio" name="q25" value="1" /> 예</label>
+          <label><input type="radio" name="q25" value="0" /> 아니오</label>
+        </div>
+
+        <div class="question">
+          <p>26. 나는 상·하의 색 조합(톤온톤, 대비)이나 소재 매치를 고려해 코디한다.</p>
+          <label><input type="radio" name="q26" value="1" /> 예</label>
+          <label><input type="radio" name="q26" value="0" /> 아니오</label>
+        </div>
+
+        <div class="question">
+          <p>27. 나는 기존 옷만으로도 다양한 무드의 스타일을 연출할 수 있다. (미니멀/캐주얼/데일리 등)</p>
+          <label><input type="radio" name="q27" value="1" /> 예</label>
+          <label><input type="radio" name="q27" value="0" /> 아니오</label>
+        </div>
+
+        <div class="question">
+          <p>28. 나는 시계 외에 반지·팔찌·목걸이·안경 등 액세서리를 활용해 룩의 완성도를 높인다.</p>
+          <label><input type="radio" name="q28" value="1" /> 예</label>
+          <label><input type="radio" name="q28" value="0" /> 아니오</label>
+        </div>
+
+        <div class="question">
+          <p>29. 나는 주변에서 “옷 잘 입는다”, “어디서 샀냐”는 질문을 받아본 적이 있다.</p>
+          <label><input type="radio" name="q29" value="1" /> 예</label>
+          <label><input type="radio" name="q29" value="0" /> 아니오</label>
+        </div>
+
+        <div class="question">
+          <p>30. 나는 유행을 과하게 따라가지 않고, 내 스타일(미니멀·클래식·스트릿 등)이 명확히 확립되어 있다.</p>
+          <label><input type="radio" name="q30" value="1" /> 예</label>
+          <label><input type="radio" name="q30" value="0" /> 아니오</label>
+        </div>
+      </form>
+
+      <div class="nav-buttons">
+        <button class="secondary-btn" id="back-style">← 이전: 헤어</button>
+        <button class="primary-btn" id="next-style">다음: 향 & 청결 →</button>
+      </div>
+    </section>
+
+    <!-- =========================
+         페이지 4 : 향
+    ========================== -->
+    <section class="page" id="page-scent">
+      <div class="step-header">
+        <span class="step">4 / 6</span>
+        <span class="step-label">향 & 청결</span>
+      </div>
+
+      <h2 class="section-title">향 & 청결</h2>
+      <p class="section-desc">
+        냄새 관리가 곧 매너입니다. 악취 관리, 향 선택, 공간 향까지 점검해봅니다.
+      </p>
+
+      <form class="question-list">
+        <!-- q31 ~ q40 -->
+        <div class="question">
+          <p>31. 나는 겨드랑이·발·사타구니·귀 뒤 등 냄새가 나는 부위를 신경 써서 씻는다.</p>
+          <label><input type="radio" name="q31" value="1" /> 예</label>
+          <label><input type="radio" name="q31" value="0" /> 아니오</label>
+        </div>
+
+        <div class="question">
+          <p>32. 나는 빨래에서 쿰쿰한 냄새가 나지 않도록 섬유유연제·건조기·환기 등으로 관리한다.</p>
+          <label><input type="radio" name="q32" value="1" /> 예</label>
+          <label><input type="radio" name="q32" value="0" /> 아니오</label>
+        </div>
+
+        <div class="question">
+          <p>33. 나는 외출 시 향수·바디미스트·섬유향수 등 발향 제품을 사용한다.</p>
+          <label><input type="radio" name="q33" value="1" /> 예</label>
+          <label><input type="radio" name="q33" value="0" /> 아니오</label>
+        </div>
+
+        <div class="question">
+          <p>34. 나는 향을 뿌리기 전 탈취(땀 냄새, 담배 냄새 등 악취 제거)를 해야 한다는 것을 알고 있으며 탈취제를 사용한다.</p>
+          <label><input type="radio" name="q34" value="1" /> 예</label>
+          <label><input type="radio" name="q34" value="0" /> 아니오</label>
+        </div>
+
+        <div class="question">
+          <p>35. 나는 나의 선호 향 계열(시트러스/우디/머스크/바닐라 등)을 알고 있다.</p>
+          <label><input type="radio" name="q35" value="1" /> 예</label>
+          <label><input type="radio" name="q35" value="0" /> 아니오</label>
+        </div>
+
+        <div class="question">
+          <p>36. 나는 향의 농도, 계절, 상황에 따라 제품을 다르게 쓴다.</p>
+          <label><input type="radio" name="q36" value="1" /> 예</label>
+          <label><input type="radio" name="q36" value="0" /> 아니오</label>
+        </div>
+
+        <div class="question">
+          <p>37. 나는 향 지속력 원리(보습 → 뿌리는 위치 → 잔향 구조)를 이해하고 적용한다.</p>
+          <label><input type="radio" name="q37" value="1" /> 예</label>
+          <label><input type="radio" name="q37" value="0" /> 아니오</label>
+        </div>
+
+        <div class="question">
+          <p>38. 나는 내 방·옷장·차 등 생활 공간 향 관리(디퓨저·사쉐·룸스프레이)를 하고 있다.</p>
+          <label><input type="radio" name="q38" value="1" /> 예</label>
+          <label><input type="radio" name="q38" value="0" /> 아니오</label>
+        </div>
+
+        <div class="question">
+          <p>39. 나는 향을 선택할 때 개인 취향뿐 아니라 나의 무드·이미지·스타일과의 조화까지 고려한다.</p>
+          <label><input type="radio" name="q39" value="1" /> 예</label>
+          <label><input type="radio" name="q39" value="0" /> 아니오</label>
+        </div>
+
+        <div class="question">
+          <p>40. 나는 “향 좋다”, “향 뭐 써요?”라는 질문을 받은 적이 있다.</p>
+          <label><input type="radio" name="q40" value="1" /> 예</label>
+          <label><input type="radio" name="q40" value="0" /> 아니오</label>
+        </div>
+      </form>
+
+      <div class="nav-buttons">
+        <button class="secondary-btn" id="back-scent">← 이전: 패션</button>
+        <button class="primary-btn" id="next-scent">다음: 운동 / 체형 →</button>
+      </div>
+    </section>
+
+    <!-- =========================
+         페이지 5 : 운동
+    ========================== -->
+    <section class="page" id="page-fitness">
+      <div class="step-header">
+        <span class="step">5 / 6</span>
+        <span class="step-label">운동 / 체형</span>
+      </div>
+
+      <h2 class="section-title">운동 / 체형</h2>
+      <p class="section-desc">
+        몸은 모든 스타일의 베이스입니다. 활동량, 루틴, 체형 관리 상태를 확인합니다.
+      </p>
+
+      <form class="question-list">
+        <!-- q41 ~ q50 -->
+        <div class="question">
+          <p>41. 나는 하루 2,000보(20~30분) 이상 걷는 날이 자주 있다.</p>
+          <label><input type="radio" name="q41" value="1" /> 예</label>
+          <label><input type="radio" name="q41" value="0" /> 아니오</label>
+        </div>
+
+        <div class="question">
+          <p>42. 나는 일주일에 최소 한 번, 땀이 날 정도의 운동을 한다.</p>
+          <label><input type="radio" name="q42" value="1" /> 예</label>
+          <label><input type="radio" name="q42" value="0" /> 아니오</label>
+        </div>
+
+        <div class="question">
+          <p>43. 나는 내 몸무게·골격근량·체지방률과 같은 기초 수치를 알고 있다.</p>
+          <label><input type="radio" name="q43" value="1" /> 예</label>
+          <label><input type="radio" name="q43" value="0" /> 아니오</label>
+        </div>
+
+        <div class="question">
+          <p>44. 나는 체지방 감소·근육 증가 등 명확한 목표로 운동 루틴을 만든 경험이 있다.</p>
+          <label><input type="radio" name="q44" value="1" /> 예</label>
+          <label><input type="radio" name="q44" value="0" /> 아니오</label>
+        </div>
+
+        <div class="question">
+          <p>45. 나는 최소 4주 이상, 주 1~2회 운동 루틴을 유지해본 적이 있다.</p>
+          <label><input type="radio" name="q45" value="1" /> 예</label>
+          <label><input type="radio" name="q45" value="0" /> 아니오</label>
+        </div>
+
+        <div class="question">
+          <p>46. 나는 주 3회 이상(1시간 이상) 땀 흘리는 운동을 꾸준히 한다.</p>
+          <label><input type="radio" name="q46" value="1" /> 예</label>
+          <label><input type="radio" name="q46" value="0" /> 아니오</label>
+        </div>
+
+        <div class="question">
+          <p>47. 나는 신체 부위별 대표 운동과 기본적인 운동 원리를 알고 있다.</p>
+          <label><input type="radio" name="q47" value="1" /> 예</label>
+          <label><input type="radio" name="q47" value="0" /> 아니오</label>
+        </div>
+
+        <div class="question">
+          <p>48. 나는 근육이 잡힌 탄탄한 체형을 유지하고 있다. (복부 포함)</p>
+          <label><input type="radio" name="q48" value="1" /> 예</label>
+          <label><input type="radio" name="q48" value="0" /> 아니오</label>
+        </div>
+
+        <div class="question">
+          <p>49. 나는 주 5회 이상 루틴과 식단을 스스로 설계·관리하며 꾸준히 실천하고 있다.</p>
+          <label><input type="radio" name="q49" value="1" /> 예</label>
+          <label><input type="radio" name="q49" value="0" /> 아니오</label>
+        </div>
+
+        <div class="question">
+          <p>50. 나는 주변에서 “몸 좋아졌다”, “체형 달라졌다”, “건강해 보인다”는 말을 들어본 적이 있다.</p>
+          <label><input type="radio" name="q50" value="1" /> 예</label>
+          <label><input type="radio" name="q50" value="0" /> 아니오</label>
+        </div>
+      </form>
+
+      <div class="nav-buttons">
+        <button class="secondary-btn" id="back-fitness">← 이전: 향 & 청결</button>
+        <button class="primary-btn" id="next-fitness">다음: 디테일 관리 →</button>
+      </div>
+    </section>
+
+    <!-- =========================
+         페이지 6 : 디테일
+    ========================== -->
+    <section class="page" id="page-detail">
+      <div class="step-header">
+        <span class="step">6 / 6</span>
+        <span class="step-label">디테일 관리</span>
+      </div>
+
+      <h2 class="section-title">디테일 관리</h2>
+      <p class="section-desc">
+        가까이서 봤을 때 진짜 티가 나는 부분들. 손톱, 콧털, 수염, 위생, 영양 관리까지 체크합니다.
+      </p>
+
+      <form class="question-list">
+        <!-- q51 ~ q60 -->
+        <div class="question">
+          <p>51. 나는 주 1회 손톱·발톱을 깔끔하게 정리한다.</p>
+          <label><input type="radio" name="q51" value="1" /> 예</label>
+          <label><input type="radio" name="q51" value="0" /> 아니오</label>
+        </div>
+
+        <div class="question">
+          <p>52. 나는 수건·양말·속옷을 하루 단위로 깨끗하게 교체한다.</p>
+          <label><input type="radio" name="q52" value="1" /> 예</label>
+          <label><input type="radio" name="q52" value="0" /> 아니오</label>
+        </div>
+
+        <div class="question">
+          <p>53. 나는 콧털이 보이지 않도록 정기적으로 정리한다.</p>
+          <label><input type="radio" name="q53" value="1" /> 예</label>
+          <label><input type="radio" name="q53" value="0" /> 아니오</label>
+        </div>
+
+        <div class="question">
+          <p>54. 나는 핸드크림·풋케어·립밤 등을 사용해 손·발·입술을 꾸준히 관리한다.</p>
+          <label><input type="radio" name="q54" value="1" /> 예</label>
+          <label><input type="radio" name="q54" value="0" /> 아니오</label>
+        </div>
+
+        <div class="question">
+          <p>55. 나는 꾸준히 면도하고, 수염 자국이 남지 않도록 관리하며 필요 시 레이저 제모도 고려하거나 하고 있다.</p>
+          <label><input type="radio" name="q55" value="1" /> 예</label>
+          <label><input type="radio" name="q55" value="0" /> 아니오</label>
+        </div>
+
+        <div class="question">
+          <p>56. 나는 눈썹 칼·가위·족집게를 사용해 눈썹을 깔끔하게 정돈할 수 있다.</p>
+          <label><input type="radio" name="q56" value="1" /> 예</label>
+          <label><input type="radio" name="q56" value="0" /> 아니오</label>
+        </div>
+
+        <div class="question">
+          <p>57. 나는 괄사 또는 마사지로 얼굴 붓기를 빼고 얼굴 라인을 관리한다.</p>
+          <label><input type="radio" name="q57" value="1" /> 예</label>
+          <label><input type="radio" name="q57" value="0" /> 아니오</label>
+        </div>
+
+        <div class="question">
+          <p>58. 나는 휴대폰·에어팟·시계·차키 등 개인 휴대물품을 주 1회 알코올로 소독한다.</p>
+          <label><input type="radio" name="q58" value="1" /> 예</label>
+          <label><input type="radio" name="q58" value="0" /> 아니오</label>
+        </div>
+
+        <div class="question">
+          <p>59. 나는 베개커버·수건·속옷 등 냄새·세균이 쉽게 쌓이는 품목을 정기적인 주기로 교체한다.</p>
+          <label><input type="radio" name="q59" value="1" /> 예</label>
+          <label><input type="radio" name="q59" value="0" /> 아니오</label>
+        </div>
+
+        <div class="question">
+          <p>60. 나는 내 라이프스타일에 필요한 영양제를 꾸준히 섭취한다.</p>
+          <label><input type="radio" name="q60" value="1" /> 예</label>
+          <label><input type="radio" name="q60" value="0" /> 아니오</label>
+        </div>
+      </form>
+
+      <div class="nav-buttons">
+        <button class="secondary-btn" id="back-detail">← 이전: 운동 / 체형</button>
+        <button class="primary-btn" id="showResultBtn">결과 보기 →</button>
+      </div>
+    </section>
+
+    <!-- =========================
+         페이지 7 : 결과
+    ========================== -->
+    <section class="page" id="page-result">
+      <h2 class="result-title">당신의 자기관리 티어 결과</h2>
+
+      <div id="overall-result" class="overall-result"></div>
+      <div id="category-results" class="category-results"></div>
+
+      <div class="product-cta">
+        <a id="productLink" href="#" target="_blank" class="product-link">
+          내 티어에 맞는 관리 제품이 궁금하다면? →  
+        </a>
+        <p class="product-note">※ 나중에 이 링크를 링크트리나 스토어 주소로 연결하면 됩니다.</p>
+      </div>
+
+      <div class="brand-block">
+        <p>
+          OWN.은 <strong>“나에게 맞는 관리”</strong>로<br />
+          나만의 매력을 완성해가는 과정을 함께합니다.
+        </p>
+        <p>당신만의 매력을 찾고, 소유하세요.<br />Own your attraction.</p>
+      </div>
+
+      <div class="result-footer">
+        <button id="retryBtn" class="secondary-btn">다시 테스트하기</button>
+      </div>
     </section>
 
   </main>
