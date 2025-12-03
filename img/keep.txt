@@ -1,0 +1,9 @@
+img/tier-iron.png
+img/tier-bronze.png
+img/tier-silver.png
+img/tier-gold.png
+img/tier-platinum.png
+img/tier-diamond.png
+img/tier-master.png
+img/tier-grandmaster.png
+img/tier-challenger.png
