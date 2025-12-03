@@ -106,57 +106,63 @@ const categoryDefs = [
 // ===============================
 //  설문 결과 수집
 // ===============================
+// ==============================
+// 전체 점수 & 카테고리 점수 계산
+// ==============================
 function collectResults() {
   const totalQuestions = 60;
   let totalScore = 0;
-  let answeredCount = 0;
-  let missing = null;
 
-  const catScores = {};
-  const catCounts = {};
-  categoryDefs.forEach((c) => {
-    catScores[c.id] = 0;
-    catCounts[c.id] = 0;
-  });
-
+  // 전체 문항 체크 (미답변 있으면 바로 리턴)
   for (let i = 1; i <= totalQuestions; i++) {
-    const yes = document.querySelector(
-      `input[name="q${i}"][value="1"]:checked`
-    );
-    const no = document.querySelector(
-      `input[name="q${i}"][value="0"]:checked`
-    );
+    const yes = document.querySelector(`input[name="q${i}"][value="1"]:checked`);
+    const no = document.querySelector(`input[name="q${i}"][value="0"]:checked`);
 
     if (!yes && !no) {
-      if (missing === null) missing = i;
-      continue;
+      return { error: true, missing: i };
     }
 
     if (yes) totalScore += 1;
-    answeredCount += 1;
-
-    const cat = categoryDefs.find((c) => i >= c.start && i <= c.end);
-    if (cat) {
-      catCounts[cat.id] += 1;
-      if (yes) catScores[cat.id] += 1;
-    }
-  }
-
-  if (missing !== null) {
-    return { error: true, missing };
   }
 
   const overallRatio = (totalScore / totalQuestions) * 100;
   const overallTier = scoreToTier(totalScore);
 
-  const categories = categoryDefs.map((cat) => {
-    const score = catScores[cat.id];
-    const max = catCounts[cat.id] || cat.end - cat.start + 1;
-    const ratio = max ? (score / max) * 100 : 0;
-    // 0~10점을 0~60점 스케일로 변환해서 전체 티어 기준과 맞추기
-    const mappedScore = Math.round((score / max) * 60);
-    const tier = scoreToTier(mappedScore);
-    return { id: cat.id, name: cat.name, score, max, ratio, tier };
+  // 카테고리 정의 (번호 구간)
+  const categoryDefs = [
+    { id: "skin", name: "피부 / 외모", start: 1, end: 10 },
+    { id: "hair", name: "헤어", start: 11, end: 20 },
+    { id: "style", name: "패션 / 스타일", start: 21, end: 30 },
+    { id: "scent", name: "향 & 청결 습관", start: 31, end: 40 },
+    { id: "fitness", name: "운동 / 체형", start: 41, end: 50 },
+    { id: "detail", name: "디테일 관리", start: 51, end: 60 },
+  ];
+
+  const categories = categoryDefs.map((def) => {
+    let score = 0;
+
+    for (let i = def.start; i <= def.end; i++) {
+      const yes = document.querySelector(
+        `input[name="q${i}"][value="1"]:checked`
+      );
+      if (yes) score += 1;
+    }
+
+    const max = def.end - def.start + 1; // 보통 10
+    const ratio = (score / max) * 100;
+
+    // ★ 핵심: 10문항 점수를 60점 만점 기준으로 환산해서 티어 계산
+    const scaledScore = Math.round((score / max) * 60);
+    const tier = scoreToTier(scaledScore);
+
+    return {
+      id: def.id,
+      name: def.name,
+      score,
+      max,
+      ratio,
+      tier,
+    };
   });
 
   return {
@@ -165,101 +171,126 @@ function collectResults() {
       score: totalScore,
       max: totalQuestions,
       ratio: overallRatio,
-      tier: overallTier
+      tier: overallTier,
     },
-    categories
+    categories,
   };
 }
 
-// ===============================
-//  결과 렌더링
-// ===============================
-// ===============================
+// ==============================
 // 결과 렌더링
-// ===============================
+// ==============================
 function renderResults(result) {
   const overallBox = document.getElementById("overall-result");
   const catBox = document.getElementById("category-results");
-  const resultSection = document.getElementById("result-section");
 
-  // 티어별 메타 정보 (상위 % + 간단 상태/브랜드/조언 요약)
-  const TIER_META = {
-    "아이언": {
-      percent: "하위 20%",
-      status: "관리라고 부르기 어려운 단계에 가까워요. 기본 위생 루틴부터 다시 세팅해야 하는 구간입니다.",
-      brand: "관리의 시작은 ‘꾸미기’가 아니라 ‘정리’입니다.",
-      advice: "세안 / 보습 / 샤워 루틴을 매일 1회 정착시키는 것부터 시작해 보세요."
-    },
-    "브론즈": {
-      percent: "하위 40%",
-      status: "기본 위생은 있지만, 외모·스타일·체형을 ‘관리한다’고 말하긴 애매한 단계입니다.",
-      brand: "지금 필요한 건 ‘나를 아는 관리’입니다.",
-      advice: "피부타입·모질·체형을 먼저 파악하고, 세안/보습/선크림 3스텝부터 고정해 보세요."
-    },
-    "실버": {
-      percent: "중위 20~60%",
-      status: "기본 관리는 하지만 꾸준함과 디테일이 부족한, 관리 입문 단계입니다.",
-      brand: "평균은 안전하지만, 매력은 평균에서 나오지 않습니다.",
-      advice: "피부든 헤어든 한 영역만이라도 ‘시그니처’ 수준까지 끌어올려 보세요."
-    },
-    "골드": {
-      percent: "상위 30%",
-      status: "관리 티는 나지만 깊이와 일관성이 부족한 단계입니다. 밸런스를 잡으면 곧 상위권으로 올라갑니다.",
-      brand: "관리의 다음 단계는 ‘꾸미기’가 아니라 ‘정교함’입니다.",
-      advice: "가장 약한 한 영역(피부·헤어·운동·향·디테일)만 집중 보강해도 급상승 구간입니다."
-    },
-    "플래티넘": {
-      percent: "상위 15%",
-      status: "누가 봐도 ‘관리한다’는 인상이 나는 구간입니다. 다만 아직은 법칙 위주의 관리에 가깝습니다.",
-      brand: "지금부터는 ‘법칙’이 아니라 ‘취향’이 중요합니다.",
-      advice: "핵심 룩·헤어·향을 2~3가지 ‘나만의 패턴’으로 만들면 완성도가 확 달라집니다."
-    },
-    "다이아": {
-      percent: "상위 10%",
-      status: "루틴과 디테일이 잘 잡혀 있지만, 여전히 정답을 좇는 관리일 수 있습니다.",
-      brand: "관리의 끝은 ‘정답’이 아니라 ‘나다움’입니다.",
-      advice: "정답만 찾지 말고 ‘나만의 색’을 더 선명하게 만드는 데 에너지를 써보세요."
-    },
-    "마스터": {
-      percent: "상위 8%",
-      status: "대부분의 영역에서 안정적인 루틴을 가진 ‘관리 시스템형’ 단계입니다.",
-      brand: "관리의 목적을 잊지 마세요.",
-      advice: "남과 비교하는 강박보다, 나에게 맞는 지속 가능한 리듬을 다듬는 게 핵심입니다."
-    },
-    "그랜드마스터": {
-      percent: "상위 3%",
-      status: "외적인 관리 거의 모든 부분이 완성형에 가까운 단계입니다.",
-      brand: "이제는 ‘관리의 완성’보다 ‘내 삶의 완성’을 생각해야 하는 구간입니다.",
-      advice: "루틴 중 불필요한 것은 줄이고, 취향·라이프스타일을 드러내는 관리에 집중해 보세요."
-    },
-    "챌린저": {
-      percent: "상위 1%",
-      status: "자기관리의 최상위. 외모·루틴·라이프스타일까지 매우 정교하게 정리된 단계입니다.",
-      brand: "더 채우는 것이 아니라, 더 나답게 비워내는 것이 중요합니다.",
-      advice: "완벽함보다 ‘나만의 분위기와 매력, 라이프스타일’을 유지하는 데 초점을 두세요."
-    }
-  };
-
-  // 티어별 아이콘 (이모지로 로고 대신)
-  const getTierIcon = (tier) => {
-    switch (tier) {
-      case "아이언": return "🥄";
-      case "브론즈": return "🥉";
-      case "실버": return "🥈";
-      case "골드": return "🥇";
-      case "플래티넘": return "💎";
-      case "다이아": return "🔷";
-      case "마스터": return "🎖️";
-      case "그랜드마스터": return "🏆";
-      case "챌린저": return "👑";
-      default: return "✨";
-    }
-  };
+  if (!overallBox || !catBox) return;
 
   const overall = result.overall;
-  const meta = TIER_META[overall.tier] || {};
-  const overallRatio = overall.ratio;
+  const categories = result.categories;
 
+  // tierMeta 없을 때도 에러 안 나게 보호
+  const meta =
+    typeof tierMeta !== "undefined" && tierMeta[overall.tier]
+      ? tierMeta[overall.tier]
+      : {};
+
+  // 티어별 아이콘
+  const tierIcons = {
+    아이언: "🛠️",
+    브론즈: "🥉",
+    실버: "🥈",
+    골드: "🥇",
+    플래티넘: "💎",
+    다이아: "💠",
+    마스터: "🎖️",
+    그랜드마스터: "🏅",
+    챌린저: "👑",
+  };
+
+  const tierLabel = `${tierIcons[overall.tier] || ""} ${overall.tier}`.trim();
+  const overallScoreText = `${overall.score} / ${overall.max}`;
+  const ratioText = `${overall.ratio.toFixed(1)}%`;
+
+  // 전체 비율보다 10%p 이상 낮은 카테고리 = 약한 영역
+  const weak = categories.filter(
+    (cat) => cat.ratio < overall.ratio - 10
+  );
+
+  let weakMessageHtml = "";
+  if (weak.length > 0) {
+    const names = weak.map((c) => c.name).join(" · ");
+    weakMessageHtml = `
+      <p class="weak-msg">
+        <strong>특히 약한 영역:</strong> ${names}<br />
+        이 영역부터 루틴을 정비해 주면 전체 티어가 가장 빠르게 올라갑니다.
+      </p>
+    `;
+  } else {
+    weakMessageHtml = `
+      <p class="weak-msg">
+        6개 영역이 비교적 균형 있게 관리되고 있습니다.<br />
+        지금의 리듬을 유지하면서, 나만의 스타일과 취향을 더 선명하게 만들어 보세요.
+      </p>
+    `;
+  }
+
+  // 상단 전체 티어 카드
+  overallBox.innerHTML = `
+    <div class="overall-card">
+      <div class="overall-header">
+        <div class="overall-tier-row">
+          <span class="overall-tier-text">${tierLabel}</span>
+          <span class="overall-tier-percent">${meta.percent || ""}</span>
+        </div>
+        <div class="overall-score">
+          <strong>${overallScoreText}</strong>
+          <span class="sub">(${overall.score} / ${
+    overall.max
+  } 문항 관리 중 · ${ratioText})</span>
+        </div>
+      </div>
+      <div class="overall-desc">
+        ${meta.status ? `<p class="tier-status">${meta.status}</p>` : ""}
+        ${meta.message ? `<p class="tier-message">${meta.message}</p>` : ""}
+        ${
+          meta.brand
+            ? `<p class="tier-brand"><strong>OWN.이 전하는 메시지</strong><br />${meta.brand}</p>`
+            : ""
+        }
+        ${weakMessageHtml}
+      </div>
+    </div>
+  `;
+
+  // 카테고리별 리스트
+  const catItemsHtml = categories
+    .map((cat) => {
+      const isWeak = weak.some((w) => w.id === cat.id);
+      const catTierLabel = `${
+        tierIcons[cat.tier] || ""
+      } ${cat.tier}`.trim();
+      const ratio = cat.ratio.toFixed(1);
+
+      return `
+        <li class="category-item${isWeak ? " weak" : ""}" ${
+        isWeak ? 'style="border-color:#ff4d4f;"' : ""
+      }>
+          <div class="cat-main">
+            <div class="cat-name">${cat.name}</div>
+            <div class="cat-count">${cat.score} / ${cat.max} 문항 관리 중</div>
+          </div>
+          <div class="cat-side">
+            <div class="cat-tier">${catTierLabel}</div>
+            <div class="cat-ratio">${ratio}%</div>
+          </div>
+        </li>
+      `;
+    })
+    .join("");
+
+  catBox.innerHTML = `<ul class="category-list">${catItemsHtml}</ul>`;
+}
   // === 상단 전체 티어 카드 ===
   overallBox.innerHTML = `
     <div class="overall-card">
