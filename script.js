@@ -102,18 +102,19 @@ const tierMeta = {
 
 // 비율 -> 티어
 function scoreToTier(ratio) {
-  // ratio: 0~100
-  if (ratio <= 20) return "IRON";
-  if (ratio <= 35) return "BRONZE";
-  if (ratio <= 50) return "SILVER";
-  if (ratio <= 65) return "GOLD";
-  if (ratio <= 80) return "PLATINUM";
-  if (ratio <= 90) return "DIAMOND";
-  if (ratio <= 95) return "MASTER";
-  if (ratio <= 98) return "GRANDMASTER";
-  return "CHALLENGER";
+ // 1~60점 "원점수" 기반 티어 계산
+function scoreToTier(score) {
+  if (score <= 8)  return "아이언";         // 1~8
+  if (score <= 21) return "브론즈";         // 9~21
+  if (score <= 34) return "실버";           // 22~34
+  if (score <= 40) return "골드";           // 35~40
+  if (score <= 45) return "플래티넘";       // 41~45
+  if (score <= 50) return "다이아";         // 46~50
+  if (score <= 53) return "마스터";         // 51~53
+  if (score <= 57) return "그랜드마스터";   // 54~57
+  return "챌린저";                          // 58~60
 }
-
+  
 // ===============================
 // DOM 참조
 // ===============================
@@ -209,12 +210,12 @@ function collectResults() {
   }
 
   const overallRatio = (totalScore / TOTAL_QUESTIONS) * 100;
-  const overallTierKey = scoreToTier(overallRatio);
+  const overallTier  = scoreToTier(totalScore);     // 퍼센트X, "점수"로
 
   const categoryResults = categories.map((cat, idx) => {
     const score = categoryScores[idx];
     const ratio = (score / QUESTIONS_PER_STEP) * 100;
-    const tier = scoreToTier(ratio);
+    const tier = scoreToTier(Score);
     return {
       id: cat.id,
       name: cat.name,
@@ -379,7 +380,27 @@ document.addEventListener("DOMContentLoaded", () => {
     surveySection.classList.remove("hidden");
     window.scrollTo({ top: 0, behavior: "smooth" });
   });
-
+  
+// ✅ 페이지 바뀔 때마다 진행도 갱신
+  updateProgressBar();
+}
+                          
   // 초기 상태
   showStep(1);
 });
+
+// 전체 설문 진행도 업데이트 (0~100%)
+function updateProgressBar() {
+  const bar = document.getElementById("surveyProgressBar");
+  if (!bar) return;
+
+  let answered = 0;
+  for (let i = 1; i <= TOTAL_QUESTIONS; i++) {
+    const yes = document.querySelector(`input[name="q${i}"][value="1"]:checked`);
+    const no = document.querySelector(`input[name="q${i}"][value="0"]:checked`);
+    if (yes || no) answered += 1;
+  }
+
+  const ratio = (answered / TOTAL_QUESTIONS) * 100;
+  bar.style.width = `${ratio}%`;
+}
