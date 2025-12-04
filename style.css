@@ -1,1 +1,414 @@
+/* 전체 레이아웃 */
 
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Pretendard", system-ui,
+    sans-serif;
+  background: #0f172a;
+  color: #0f172a;
+  display: flex;
+  justify-content: center;
+  padding: 24px;
+}
+
+.app {
+  width: 100%;
+  max-width: 960px;
+}
+
+.card {
+  background: #f9fafb;
+  border-radius: 18px;
+  box-shadow: 0 18px 35px rgba(15, 23, 42, 0.35);
+  padding: 28px 24px 32px;
+  margin: 0 auto;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.card.hidden {
+  display: none;
+}
+
+.card.active {
+  display: block;
+}
+
+/* 인트로 */
+
+.intro-header {
+  text-align: left;
+  margin-bottom: 24px;
+}
+
+.app-title {
+  font-size: 24px;
+  margin: 0 0 8px;
+  font-weight: 700;
+}
+
+.app-subtitle {
+  margin: 0;
+  color: #4b5563;
+  line-height: 1.6;
+}
+
+.intro-block {
+  margin-top: 20px;
+  padding: 16px 18px;
+  border-radius: 14px;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+}
+
+.intro-block h2 {
+  margin: 0 0 10px;
+  font-size: 16px;
+}
+
+.intro-block ul {
+  margin: 0;
+  padding-left: 18px;
+  color: #4b5563;
+}
+
+.intro-block li {
+  margin-bottom: 4px;
+  line-height: 1.5;
+}
+
+.tier-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 10px;
+  font-size: 14px;
+  color: #374151;
+}
+
+.intro-note {
+  margin-top: 10px;
+  font-size: 13px;
+  color: #6b7280;
+}
+
+.intro-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 18px;
+}
+
+/* 버튼 */
+
+.primary-btn,
+.ghost-btn {
+  border-radius: 999px;
+  padding: 10px 20px;
+  font-size: 14px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.primary-btn {
+  background: #111827;
+  color: #f9fafb;
+  font-weight: 600;
+}
+
+.primary-btn:hover {
+  background: #020617;
+}
+
+.primary-btn.secondary {
+  background: #111827;
+  color: #f9fafb;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.ghost-btn {
+  background: transparent;
+  color: #111827;
+  border: 1px solid #d1d5db;
+}
+
+.ghost-btn:hover {
+  background: #e5e7eb;
+}
+
+/* 설문 페이지 */
+
+.quiz-header {
+  margin-bottom: 14px;
+}
+
+.quiz-title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 8px;
+}
+
+#category-title {
+  margin: 0;
+  font-size: 18px;
+}
+
+.category-step {
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.progress-bar {
+  margin-top: 8px;
+  width: 100%;
+  height: 6px;
+  background: #e5e7eb;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #111827, #4b5563);
+  transition: width 0.25s ease;
+}
+
+.questions-container {
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.question-card {
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 10px 12px;
+  border: 1px solid #e5e7eb;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+.question-text {
+  font-size: 13px;
+  color: #111827;
+  line-height: 1.4;
+}
+
+.answer-toggle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+  font-size: 12px;
+}
+
+.answer-toggle label {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+}
+
+.answer-toggle input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+}
+
+/* 설문 풋터 */
+
+.quiz-footer {
+  margin-top: 18px;
+  display: flex;
+  justify-content: space-between;
+}
+
+/* 결과 페이지 */
+
+.result-header {
+  text-align: left;
+  border-bottom: 1px solid #e5e7eb;
+  padding-bottom: 12px;
+  margin-bottom: 14px;
+}
+
+.result-label {
+  margin: 0 0 4px;
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.result-tier-text {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 800;
+}
+
+.result-score-text {
+  margin: 6px 0 0;
+  font-size: 13px;
+  color: #4b5563;
+}
+
+.result-explanation {
+  background: #ffffff;
+  border-radius: 14px;
+  border: 1px solid #e5e7eb;
+  padding: 14px 14px 12px;
+  margin-bottom: 14px;
+  font-size: 13px;
+  color: #111827;
+}
+
+.result-explanation h3 {
+  margin-top: 0;
+  margin-bottom: 6px;
+  font-size: 14px;
+}
+
+.result-explanation p {
+  margin: 4px 0;
+  line-height: 1.5;
+}
+
+.result-explanation ul {
+  padding-left: 18px;
+  margin: 4px 0;
+}
+
+.result-explanation li {
+  margin-bottom: 2px;
+}
+
+/* 카테고리별 결과 */
+
+.result-categories {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.category-result-card {
+  background: #ffffff;
+  border-radius: 14px;
+  border: 1px solid #e5e7eb;
+  padding: 10px 12px;
+  font-size: 13px;
+}
+
+.category-result-card.weak {
+  border-color: #f97373;
+  box-shadow: 0 0 0 1px rgba(248, 113, 113, 0.35);
+}
+
+.category-result-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 4px;
+}
+
+.category-result-name {
+  font-weight: 600;
+}
+
+.category-result-tier {
+  font-size: 12px;
+  color: #374151;
+}
+
+.category-result-score {
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.category-result-note {
+  margin: 4px 0 0;
+  font-size: 12px;
+  color: #4b5563;
+}
+
+/* CTA 섹션 */
+
+.result-cta {
+  margin-top: 4px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: #111827;
+  color: #f9fafb;
+  text-align: left;
+}
+
+.result-cta-title {
+  margin: 0 0 4px;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.result-cta-text {
+  margin: 0 0 10px;
+  font-size: 12px;
+  color: #e5e7eb;
+}
+
+/* 브랜드 푸터 */
+
+.brand-footer {
+  margin-top: 14px;
+  padding-top: 10px;
+  border-top: 1px solid #e5e7eb;
+  text-align: left;
+  font-size: 12px;
+  color: #4b5563;
+}
+
+.brand-footer p {
+  margin: 4px 0;
+}
+
+.brand-slogan {
+  margin-top: 6px;
+  font-size: 12px;
+}
+
+/* 결과 하단 버튼 */
+
+.result-actions {
+  margin-top: 14px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* 반응형 */
+
+@media (max-width: 640px) {
+  .card {
+    padding: 20px 16px 22px;
+  }
+
+  .app-title {
+    font-size: 20px;
+  }
+
+  .question-card {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .quiz-footer {
+    flex-direction: row;
+    gap: 8px;
+  }
+
+  .quiz-footer button {
+    flex: 1;
+  }
+}
