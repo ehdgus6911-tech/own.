@@ -1,177 +1,267 @@
 <!DOCTYPE html>
 <html lang="ko">
-
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>OWN. 자기관리 티어 테스트</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="style.css" />
 </head>
-
 <body>
+  <div class="app">
 
-  <div class="page-wrapper">
-    <div class="container">
+    <!-- =========================
+         헤더
+    ========================== -->
+    <header class="site-header">
+      <div class="site-logo">own.</div>
+      <div class="site-sub">당신만의 매력을, 숫자로 확인하는 첫 시작</div>
+    </header>
 
-      <!-- ============================
+    <main>
+
+      <!-- =========================
            인트로 섹션
-      ============================= -->
-      <section id="introSection" class="section-card">
+      ========================== -->
+      <section id="introSection" class="section section-intro">
+        <div class="card intro-card">
 
-        <div class="brand-title">OWN.</div>
-        <div class="brand-headline">자기관리 티어 테스트</div>
-
-        <p class="brand-description">
-          우리는 누구나 스스로를 알아갈 때 가장 매력적이라고 믿습니다.
-        </p>
-        <p class="brand-description">
-          그래서 OWN.은 정답을 좇는 관리가 아니라,
-          나를 알아가는 과정에서 완성되는 ‘나다운 매력’을 가장 중요하게 생각합니다.
-        </p>
-
-        <div class="section-divider"></div>
-
-        <div class="section-title">이 테스트로 무엇을 알 수 있나요?</div>
-        <ul class="section-list">
-          <li>지금 내 자기관리 수준이 9티어 중 어디인지</li>
-          <li>피부 · 헤어 · 패션 · 향 · 운동 · 디테일 중 어떤 영역이 약한지</li>
-          <li>각 티어별 현실적인 개선 방향</li>
-          <li>‘나다운 매력’을 키우기 위한 개인화된 관리 가이드</li>
-        </ul>
-
-        <div class="section-divider"></div>
-
-        <div class="section-title">티어 시스템 안내 (총 9티어)</div>
-        <ul class="section-list">
-          <li>🪨 아이언</li>
-          <li>🥉 브론즈</li>
-          <li>🥈 실버</li>
-          <li>🥇 골드</li>
-          <li>💎 플래티넘</li>
-          <li>💠 다이아몬드</li>
-          <li>🎖 마스터</li>
-          <li>🥇 그랜드마스터</li>
-          <li>👑 챌린저</li>
-        </ul>
-
-        <p class="caption" style="margin-top:10px;">
-          점수는 60문항 중 ‘예(1점)’ 개수로 계산되며<br />
-          최종 점수에 따라 위 9개 티어로 분류됩니다.
-        </p>
-
-        <div class="section-divider"></div>
-
-        <div class="operator-title">OWN. 운영자의 한 마디</div>
-        <p class="operator-text">
-          이 테스트는 당신을 평가하기 위한 도구가 아니라,<br />
-          어디서부터 관리하면 좋을지 알려주는 ‘지도’에 가깝습니다.<br /><br />
-          지금의 나를 있는 그대로 바라보고,<br />
-          내 삶에 맞는 관리 루틴을 함께 찾아가봅시다.
-        </p>
-
-        <button id="startBtn" class="primary-btn">관리 테스트 시작하기</button>
-
-      </section>
-
-
-      <!-- ============================
-           설문 섹션
-      ============================= -->
-      <section id="surveySection" class="section-card hidden">
-
-        <!-- 헤더 -->
-        <div class="survey-header">
-          <div class="survey-title">관리 습관 체크리스트</div>
-          <div class="survey-step" id="stepIndicator">1 / 6</div>
-        </div>
-
-        <!-- 진행 바 -->
-        <div class="survey-progress">
-          <div class="survey-progress-bar" id="surveyProgressBar"></div>
-        </div>
-
-        <!-- 설문폼 -->
-        <form id="surveyForm">
-
-          <!-- 6개의 페이지 (페이지당 10문항) -->
-          <!-- 페이지 번호는 data-step 으로 관리 -->
-
-          <!-- ====== 페이지 1 ====== -->
-          <div class="question-page" data-step="1">
-
-            <div class="section-sub-label">1 페이지 · 피부 · 위생</div>
-            <div class="section-page-title">피부 / 외모 루틴</div>
-
-            <!-- 질문 1 ~ 10 -->
-            <!-- 예 = 1, 아니오 = 0 -->
-
-            <div class="question">
-              <p>1. 나는 아침/저녁으로 규칙적인 세안을 한다.</p>
-              <div class="question-options">
-                <label><input type="radio" name="q1" value="1"> 예</label>
-                <label><input type="radio" name="q1" value="0"> 아니오</label>
-              </div>
-            </div>
-
-            <div class="question">
-              <p>2. 나는 세안 후 내 피부타입에 맞는 보습 루틴을 유지한다.</p>
-              <div class="question-options">
-                <label><input type="radio" name="q2" value="1"> 예</label>
-                <label><input type="radio" name="q2" value="0"> 아니오</label>
-              </div>
-            </div>
-
-            <!-- 나머지 질문들은 JS에서 자동 생성됨 -->
+          <div class="intro-block">
+            <h1 class="section-title">OWN. 자기관리 티어 테스트</h1>
+            <p>
+              우리는 누구나 스스로를 알아갈 때 가장 매력적이라고 믿습니다.<br />
+              그래서 OWN.은 정답을 좇는 관리가 아니라,<br />
+              <strong>나를 알아가는 과정에서 완성되는 ‘나다운 매력’</strong>을 가장 중요하게 생각합니다.
+            </p>
           </div>
 
+          <div class="intro-block">
+            <h2 class="intro-subtitle">이 테스트로 무엇을 알 수 있나요?</h2>
+            <ul class="intro-list">
+              <li>지금 내 자기관리 수준이 9티어 중 어디에 있는지</li>
+              <li>피부 · 헤어 · 패션 · 향 · 운동 · 디테일 관리 중 어떤 영역이 약한지</li>
+              <li>각 티어에 맞는 현실적인 개선 방향</li>
+              <li>‘나다운 매력’을 키우기 위한 개인화된 관리 가이드</li>
+            </ul>
+          </div>
 
-          <!-- ====== 페이지 2 ~ 6 ====== -->
-          <!-- JS에서 자동 생성되므로 HTML에 추가할 필요 없음 -->
+          <div class="intro-block">
+            <h2 class="intro-subtitle">티어 시스템 안내 (총 9티어)</h2>
+            <ul class="intro-tier-list">
+              <li>🪨 아이언</li>
+              <li>🥉 브론즈</li>
+              <li>🥈 실버</li>
+              <li>🥇 골드</li>
+              <li>💎 플래티넘</li>
+              <li>💠 다이아몬드</li>
+              <li>🎖 마스터</li>
+              <li>🥇 그랜드마스터</li>
+              <li>👑 챌린저</li>
+            </ul>
+            <p class="intro-note">
+              점수는 60문항 중 ‘예(1점)’ 개수로 계산되며,<br />
+              최종 점수에 따라 위 9개 티어로 분류됩니다.
+            </p>
+          </div>
 
-        </form>
+          <div class="intro-block intro-footer">
+            <h2 class="intro-subtitle">OWN. 운영자의 한 마디</h2>
+            <p>
+              이 테스트는 당신을 평가하기 위한 도구가 아니라,<br />
+              어디서부터 관리하면 좋을지 알려주는 <strong>‘지도’</strong>에 가깝습니다.
+            </p>
+            <p>
+              지금의 나를 있는 그대로 바라보고,<br />
+              <strong>내 삶에 맞는 관리 루틴</strong>을 함께 찾아가봅시다.
+            </p>
+          </div>
 
-        <!-- 페이지 이동 버튼 -->
-        <div class="page-nav">
-          <button id="prevBtn" class="secondary-btn">이전</button>
-          <button id="nextBtn" class="primary-btn">다음</button>
+          <div class="intro-cta">
+            <button id="startBtn" class="primary-btn">관리 테스트 시작하기</button>
+          </div>
         </div>
-
       </section>
 
+      <!-- =========================
+           설문 섹션 (6단계)
+      ========================== -->
+      <section id="surveySection" class="section section-survey hidden">
+        <div class="card survey-card">
+          <div class="survey-header">
+            <div>
+              <h2 class="survey-title">관리 습관 체크리스트</h2>
+              <div class="survey-step" id="stepIndicator">1 / 6</div>
+            </div>
+            <div class="survey-progress">
+              <div class="survey-progress-bar" id="surveyProgressBar"></div>
+            </div>
+          </div>
 
-      <!-- ============================
+          <form id="surveyForm">
+
+            <!-- ====== 1 페이지 : 피부 / 외모 ====== -->
+            <div class="question-page" data-step="1">
+              <div class="section-sub-label">1 페이지 · 피부 · 위생</div>
+              <div class="section-page-title">피부 / 외모 루틴</div>
+
+              <!-- 질문 1~10 (피부 최종본) -->
+
+              <div class="question">
+                <p>1. 나는 아침/저녁으로 규칙적인 세안을 하며, <strong>피부 상태에 맞게 세안 방식을 조절한다.</strong> (예: 아침/저녁 약산성·약 알칼리성 사용, 메이크업·선크림 사용 시 이중세안 등)</p>
+                <div class="question-options">
+                  <label><input type="radio" name="q1" value="1" /> 예</label>
+                  <label><input type="radio" name="q1" value="0" /> 아니오</label>
+                </div>
+              </div>
+
+              <div class="question">
+                <p>2. 나는 세안할 때 비누가 아닌, <strong>피부타입에 맞는 약산성·저자극·약 알칼리성 클렌저</strong>를 사용한다.</p>
+                <div class="question-options">
+                  <label><input type="radio" name="q2" value="1" /> 예</label>
+                  <label><input type="radio" name="q2" value="0" /> 아니오</label>
+                </div>
+              </div>
+
+              <div class="question">
+                <p>3. 나는 세안 후 <strong>3분 안에 토너·세럼·크림으로 보습 루틴</strong>을 유지한다.</p>
+                <div class="question-options">
+                  <label><input type="radio" name="q3" value="1" /> 예</label>
+                  <label><input type="radio" name="q3" value="0" /> 아니오</label>
+                </div>
+              </div>
+
+              <div class="question">
+                <p>4. 나는 자외선 차단제를 외출 시 꼭 바르고, <strong>장시간 외출 시 필요하면 덧바른다.</strong></p>
+                <div class="question-options">
+                  <label><input type="radio" name="q4" value="1" /> 예</label>
+                  <label><input type="radio" name="q4" value="0" /> 아니오</label>
+                </div>
+              </div>
+
+              <div class="question">
+                <p>5. 나는 내 피부타입(건성·지성·복합성)을 정확히 알고, <strong>모공·트러블·수분·민감 등 고민에 맞는 제품으로 꾸준히 관리</strong>한다.</p>
+                <div class="question-options">
+                  <label><input type="radio" name="q5" value="1" /> 예</label>
+                  <label><input type="radio" name="q5" value="0" /> 아니오</label>
+                </div>
+              </div>
+
+              <div class="question">
+                <p>6. 나는 각질·진정·장벽 관리 등을 <strong>주기적으로 실시하며</strong>, 피부 컨디션을 일정하게 유지하려고 노력한다.</p>
+                <div class="question-options">
+                  <label><input type="radio" name="q6" value="1" /> 예</label>
+                  <label><input type="radio" name="q6" value="0" /> 아니오</label>
+                </div>
+              </div>
+
+              <div class="question">
+                <p>7. 나는 내 얼굴톤에 맞는 <strong>톤업 크림·파데·쿠션</strong> 등 기본 커버 제품을 <strong>자연스럽게 사용할 수 있다.</strong></p>
+                <div class="question-options">
+                  <label><input type="radio" name="q7" value="1" /> 예</label>
+                  <label><input type="radio" name="q7" value="0" /> 아니오</label>
+                </div>
+              </div>
+
+              <div class="question">
+                <p>8. 나는 계절·환경 변화(난방·습도 등)에 따라 <strong>사용하는 제품이나 루틴을 조절</strong>할 수 있다.</p>
+                <div class="question-options">
+                  <label><input type="radio" name="q8" value="1" /> 예</label>
+                  <label><input type="radio" name="q8" value="0" /> 아니오</label>
+                </div>
+              </div>
+
+              <div class="question">
+                <p>9. 나는 화장품 성분(<strong>레티놀·비타민C·AHA·BHA 등</strong>)과 효과를 알고, 내 피부 문제에 맞는 성분을 <strong>선택해서 사용</strong>한다.</p>
+                <div class="question-options">
+                  <label><input type="radio" name="q9" value="1" /> 예</label>
+                  <label><input type="radio" name="q9" value="0" /> 아니오</label>
+                </div>
+              </div>
+
+              <div class="question">
+                <p>10. 나는 필요할 때 <strong>피부과 시술·전문 관리를 병행해</strong> 피부 문제를 해결한다.</p>
+                <div class="question-options">
+                  <label><input type="radio" name="q10" value="1" /> 예</label>
+                  <label><input type="radio" name="q10" value="0" /> 아니오</label>
+                </div>
+              </div>
+            </div>
+
+            <!-- ====== 2 페이지 : 헤어 ====== -->
+            <div class="question-page hidden" data-step="2">
+              <div class="section-sub-label">2 페이지 · 헤어</div>
+              <div class="section-page-title">헤어 / 두피 루틴</div>
+
+              <!-- 여기 아래는 잠깐 비워두고,
+                   다음 답변에서 q11 ~ q20 전체 HTML을 채워줄게 -->
+            </div>
+
+            <!-- ====== 3 페이지 : 패션 ====== -->
+            <div class="question-page hidden" data-step="3">
+              <div class="section-sub-label">3 페이지 · 패션</div>
+              <div class="section-page-title">패션 / 스타일</div>
+            </div>
+
+            <!-- ====== 4 페이지 : 향 ====== -->
+            <div class="question-page hidden" data-step="4">
+              <div class="section-sub-label">4 페이지 · 향</div>
+              <div class="section-page-title">향 / 청결 습관</div>
+            </div>
+
+            <!-- ====== 5 페이지 : 운동 ====== -->
+            <div class="question-page hidden" data-step="5">
+              <div class="section-sub-label">5 페이지 · 운동</div>
+              <div class="section-page-title">운동 / 체형</div>
+            </div>
+
+            <!-- ====== 6 페이지 : 디테일 ====== -->
+            <div class="question-page hidden" data-step="6">
+              <div class="section-sub-label">6 페이지 · 디테일</div>
+              <div class="section-page-title">디테일 관리</div>
+            </div>
+
+          </form>
+
+          <!-- 페이지 이동 버튼 -->
+          <div class="page-nav">
+            <button id="prevBtn" class="secondary-btn" type="button">이전</button>
+            <button id="nextBtn" class="primary-btn" type="button">다음</button>
+            <button id="submitBtn" class="primary-btn hidden" type="button">결과 보기</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- =========================
            결과 섹션
-      ============================= -->
-      <section id="resultSection" class="section-card hidden">
+      ========================== -->
+      <section id="resultSection" class="section section-result hidden">
+        <div class="card overall-card">
+          <h2 class="section-title">당신의 자기관리 티어 결과</h2>
+          <div id="overall-result" class="overall-result"></div>
+          <div id="category-results" class="category-results"></div>
 
-        <div class="result-title">당신의 자기관리 티어 결과</div>
+          <div class="product-cta">
+            <p class="product-cta-title">내 티어에 맞는 관리 제품이 궁금하다면?</p>
+            <a id="productLink" href="#" target="_blank" rel="noopener" class="product-link">
+              내 티어에 맞는 관리 루틴 · 제품 보러가기 →
+            </a>
+            <p class="product-cta-note">※ 추후 링크트리 또는 제품 페이지로 연결 예정</p>
+          </div>
 
-        <div id="overall-result"></div>
-        <div id="category-results"></div>
+          <div class="brand-block">
+            <p>OWN.은 <strong>“나를 알아가는 관리”</strong>로<br />나만의 매력을 완성해가는 과정을 함께합니다.</p>
+            <p>당신만의 매력을 찾고, 소유하세요.<br /><strong>Own your attraction.</strong></p>
+          </div>
 
-        <div class="product-cta">
-          <div class="product-cta-title">자기관리는 ‘나를 알아가는 과정’입니다.</div>
-          <div class="product-cta-desc">당신의 루틴과 취향에 맞춘 추천 제품을 보고 싶다면?</div>
-          <a href="https://link" target="_blank">
-            <button class="primary-btn">나에게 맞는 제품 보러가기</button>
-          </a>
-          <div class="product-cta-note">
-            OWN.은 “나를 알아가는 관리”로 나만의 매력을 완성해가는 과정을 함께합니다.
-            <br />Own your attraction.
+          <div class="result-footer">
+            <button id="retryBtn" class="secondary-btn">테스트 다시 하기</button>
           </div>
         </div>
-
-        <div class="result-footer">
-          <button id="retryBtn" class="secondary-btn">다시 테스트하기</button>
-        </div>
-
       </section>
 
+    </main>
 
-    </div>
   </div>
 
   <script src="script.js"></script>
 </body>
-
 </html>
