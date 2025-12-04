@@ -7,130 +7,140 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="app">
+  <div class="page">
     <!-- 인트로 섹션 -->
-    <section id="intro-section" class="card active">
-      <header class="intro-header">
-        <h1 class="app-title">OWN. 자기관리 티어 테스트</h1>
-        <p class="app-subtitle">
-          우리는 누구나 스스로를 알아갈 때 가장 매력적이라고 믿습니다.<br />
-          그래서 OWN.은 정답을 좇는 관리가 아니라,<br />
-          나를 알아가는 과정에서 완성되는 <strong>‘나다운 매력’</strong>을 가장 중요하게 생각합니다.
+    <header class="top-brand">
+      <div class="brand-mark">own.</div>
+      <div class="brand-sub"> 우리는 누구나 스스로를 알아갈 때 가장 매력적이라고 믿습니다.
+          그래서 OWN.은 정답을 좇는 관리가 아니라,
+          나를 알아가는 과정에서 완성되는 나다운 매력’을 가장 중요하게 생각합니다.</div>
+    </header>
+
+    <main class="container">
+      <!-- 인트로 카드 -->
+      <section id="introSection" class="card active">
+        <h1 class="card-title">내 자기 관리 티어는 몇 티어일까?</h1>
+        <p class="card-sub">
+          헤어, 피부, 패션, 향, 운동, 디테일까지.<br />
+          총 60개 문항으로 지금 나의 자기관리 수준을 확인해보세요.
         </p>
-      </header>
 
-      <section class="intro-block">
-        <h2>🔍 이 테스트로 무엇을 알 수 있나요?</h2>
-        <ul>
-          <li>지금 내 자기관리 수준이 <strong>9티어</strong> 중 어디에 있는지</li>
-          <li>피부 · 헤어 · 패션 · 향 · 운동 · 디테일 관리 중 <strong>어떤 영역이 약한지</strong></li>
-          <li>각 티어에 맞는 <strong>현실적인 개선 방향</strong></li>
-          <li><strong>‘나다운 매력’</strong>을 키우기 위한 개인화된 관리 가이드</li>
-        </ul>
-      </section>
+        <div class="intro-grid">
+          <div class="intro-block">
+            <h2>이 테스트로 무엇을 알 수 있나요?</h2>
+            <ul>
+              <li>지금 내 자기관리 수준이 9티어 중 어디에 있는지</li>
+              <li>피부 · 헤어 · 패션 · 향 · 운동 · 디테일 중 어떤 영역이 약한지</li>
+              <li>각 티어에 맞는 현실적인 개선 방향</li>
+              <li>‘나를 알아가는 관리’의 출발점이 어딘지</li>
+            </ul>
+          </div>
 
-      <section class="intro-block">
-        <h2>🎮 티어 시스템 안내 (총 9티어)</h2>
-        <div class="tier-list">
-          <span>🪨 아이언</span>
-          <span>🥉 브론즈</span>
-          <span>🥈 실버</span>
-          <span>🥇 골드</span>
-          <span>💎 플래티넘</span>
-          <span>💠 다이아몬드</span>
-          <span>🎖 마스터</span>
-          <span>🥇 그랜드마스터</span>
-          <span>👑 챌린저</span>
+          <div class="intro-block">
+            <h2>티어 시스템 안내 (총 9티어)</h2>
+            <p class="tier-line">
+              🪨 아이언 · 🥉 브론즈 · 🥈 실버 · 🥇 골드 · 💎 플래티넘 · 💠 다이아몬드 · 🎖 마스터 · 🥇 그랜드마스터 · 👑 챌린저
+            </p>
+            <p class="note">
+              점수는 60문항 중 <strong>‘예(1점)’ 개수</strong>로 계산되며,<br />
+              최종 점수에 따라 위 9개 티어로 분류됩니다.
+            </p>
+          </div>
         </div>
-        <p class="intro-note">
-          점수는 60문항 중 <strong>‘예(1점)’ 개수</strong>로 계산되며,<br />
-          최종 점수에 따라 위 9개 티어로 분류됩니다.
-        </p>
-      </section>
 
-      <section class="intro-block">
-        <h2>🗣️ OWN. 운영자의 한 마디</h2>
-        <p>
-          이 테스트는 당신을 평가하기 위한 도구가 아니라,<br />
-          <strong>어디서부터 관리하면 좋을지 알려주는 ‘지도’</strong>에 가깝습니다.
-        </p>
-        <p>
-          지금의 나를 있는 그대로 바라보고,<br />
-          <strong>내 삶에 맞는 관리 루틴</strong>을 함께 찾아가봅시다.
-        </p>
-      </section>
-
-      <div class="intro-actions">
-        <button id="start-btn" class="primary-btn">관리 테스트 시작하기</button>
-      </div>
-    </section>
-
-    <!-- 설문 섹션 -->
-    <section id="quiz-section" class="card hidden">
-      <div class="quiz-header">
-        <div class="quiz-title-row">
-          <h2 id="category-title">피부 (Skin)</h2>
-          <span id="category-step" class="category-step">1 / 6</span>
+        <div class="intro-block full">
+          <h2>OWN. 운영자의 한 마디</h2>
+          <p>
+            이 테스트는 당신을 평가하기 위한 도구가 아니라,<br />
+            어디서부터 관리하면 좋을지 알려주는 <strong>지도</strong>에 가깝습니다.
+          </p>
+          <p>
+            지금의 나를 있는 그대로 바라보고,<br />
+            <strong>내 삶에 맞는 관리 루틴</strong>을 함께 찾아가봅시다.
+          </p>
         </div>
-        <div class="progress-bar">
-          <div id="progress-fill" class="progress-fill"></div>
+
+        <div class="intro-cta-wrap">
+          <button id="startBtn" class="btn primary wide">관리 테스트 시작하기</button>
         </div>
-      </div>
-
-      <div id="questions-container" class="questions-container">
-        <!-- JS로 질문 렌더링 -->
-      </div>
-
-      <div class="quiz-footer">
-        <button id="prev-btn" class="ghost-btn">이전</button>
-        <button id="next-btn" class="primary-btn">다음</button>
-      </div>
-    </section>
-
-    <!-- 결과 섹션 -->
-    <section id="result-section" class="card hidden">
-      <header class="result-header">
-        <p class="result-label">나의 전체 자기관리 티어</p>
-        <h2 id="result-tier-text" class="result-tier-text">💎 Platinum</h2>
-        <p id="result-score-text" class="result-score-text">
-          42 / 60 (70.0%) · 상위 15%
-        </p>
-      </header>
-
-      <section id="result-explanation" class="result-explanation">
-        <!-- 티어별 설명 문구 JS 삽입 -->
       </section>
 
-      <section id="result-categories" class="result-categories">
-        <!-- 대분류별 티어 요약 -->
+      <!-- 설문 섹션 -->
+      <section id="surveySection" class="card hidden">
+        <header class="survey-header">
+          <div class="survey-top">
+            <h2 id="surveyTitle">피부 / 외모</h2>
+            <span id="stepIndicator" class="step-indicator">1 / 6</span>
+          </div>
+          <div class="survey-progress">
+            <div id="surveyProgressBar" class="survey-progress-bar"></div>
+          </div>
+        </header>
+
+        <form id="surveyForm" class="survey-form">
+          <!-- JS로 각 카테고리 / 질문 렌더링 -->
+        </form>
+
+        <footer class="survey-footer">
+          <button id="prevStepBtn" type="button" class="btn ghost">이전</button>
+          <button id="nextStepBtn" type="button" class="btn primary">다음</button>
+        </footer>
       </section>
 
-      <section class="result-cta">
-        <p class="result-cta-title">🔗 나를 알아가는 관리에 도움이 되는 추천 제품이 궁금하다면?</p>
-        <p class="result-cta-text">
-          지금 내 관리 티어와 약한 영역에 맞춰,<br />
-          OWN.이 직접 써보고 선별한 제품 리스트를 확인해보세요.
-        </p>
-        <a id="product-link" href="#" class="primary-btn secondary">
-          OWN. 추천 제품 보러가기
-        </a>
+      <!-- 결과 섹션 -->
+      <section id="resultSection" class="card hidden">
+        <header class="overall-header">
+          <p class="overall-label">당신의 자기관리 티어 결과</p>
+          <div class="overall-main">
+            <div>
+              <h2 id="overallTierText" class="overall-tier">💎 플래티넘</h2>
+              <p id="overallScoreText" class="overall-score">
+                42 / 60 문항 관리 중 · 70.0% · 상위 15%
+              </p>
+            </div>
+          </div>
+        </header>
+
+        <section id="overallExplanation" class="overall-explanation">
+          <!-- JS: 티어별 설명 -->
+        </section>
+
+        <section>
+          <h3 class="section-title small">영역별 상세 티어</h3>
+          <div id="categoryResults" class="category-results">
+            <!-- JS: 카테고리별 카드 -->
+          </div>
+        </section>
+
+        <section class="result-cta">
+          <p class="result-cta-title">
+            🔗 나를 알아가는 관리에 도움이 되는 추천 제품이 궁금하다면?
+          </p>
+          <p class="result-cta-text">
+            지금 내 관리 티어와 약한 영역에 맞춰,<br />
+            OWN.이 직접 써보고 선별한 제품 리스트를 확인해보세요.
+          </p>
+          <a id="productLink" href="#" class="btn primary secondary wide">
+            OWN. 추천 제품 보러가기
+          </a>
+        </section>
+
+        <section class="brand-footer">
+          <p>
+            OWN.은 <strong>“나를 알아가는 관리”</strong>로<br />
+            나만의 매력을 완성해가는 과정을 함께합니다.
+          </p>
+          <p class="brand-slogan">
+            당신만의 매력을 찾고, 소유하세요.<br />
+            <strong>Own your attraction.</strong>
+          </p>
+        </section>
+
+        <footer class="result-footer">
+          <button id="retryBtn" class="btn ghost wide">테스트 다시 하기</button>
+        </footer>
       </section>
-
-      <footer class="brand-footer">
-        <p>
-          OWN.은 <strong>“나를 알아가는 관리”</strong>로<br />
-          나만의 매력을 완성해가는 과정을 함께합니다.
-        </p>
-        <p class="brand-slogan">
-          당신만의 매력을 찾고, 소유하세요.<br />
-          <strong>Own your attraction.</strong>
-        </p>
-      </footer>
-
-      <div class="result-actions">
-        <button id="retry-btn" class="ghost-btn">다시 테스트하기</button>
-      </div>
-    </section>
+    </main>
   </div>
 
   <script src="script.js"></script>
