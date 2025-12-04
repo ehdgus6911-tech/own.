@@ -1,67 +1,95 @@
-/* ===========================
-   기본 셀렉터
-=========================== */
-const startBtn = document.getElementById("startBtn");
-const nextBtn = document.getElementById("nextBtn");
-const retryBtn = document.getElementById("retryBtn");
+// ===============================
+// 설문 기본 설정
+// ===============================
 
+// 총 문항 수
+const TOTAL_QUESTIONS = 60;
+
+// 카테고리 구성 (6개 × 10문항)
+const categories = [
+  { id: "skin", name: "피부 / 외모" },
+  { id: "hair", name: "헤어" },
+  { id: "style", name: "패션 / 스타일" },
+  { id: "scent", name: "향 & 청결 습관" },
+  { id: "fitness", name: "운동 / 체형" },
+  { id: "detail", name: "디테일 관리" },
+];
+
+// ===============================
+// DOM 요소
+// ===============================
 const introSection = document.getElementById("introSection");
 const surveySection = document.getElementById("surveySection");
 const resultSection = document.getElementById("resultSection");
 
+const startBtn = document.getElementById("startBtn");
+const submitBtn = document.getElementById("submitBtn");
+const retryBtn = document.getElementById("retryBtn");
+
 const stepIndicator = document.getElementById("stepIndicator");
 const progressBar = document.getElementById("surveyProgressBar");
 
+const questionPages = document.querySelectorAll(".question-page");
+
 const overallBox = document.getElementById("overall-result");
-const catBox = document.getElementById("category-results");
+const categoryBox = document.getElementById("category-results");
 
-const TOTAL_QUESTIONS = 60;
-const QUESTIONS_PER_STEP = 10;
-let currentStep = 1;
-
-/* ===========================
-   티어 메타
-=========================== */
-const tierList = [
-  { name: "🪨 아이언", min: 0, max: 8 },
-  { name: "🥉 브론즈", min: 9, max: 21 },
-  { name: "🥈 실버", min: 22, max: 34 },
-  { name: "🥇 골드", min: 35, max: 40 },
-  { name: "💎 플래티넘", min: 41, max: 45 },
-  { name: "💠 다이아몬드", min: 46, max: 50 },
-  { name: "🎖 마스터", min: 51, max: 53 },
-  { name: "🥇 그랜드마스터", min: 54, max: 57 },
-  { name: "👑 챌린저", min: 58, max: 60 }
-];
-
-function getTier(score) {
-  return tierList.find(t => score >= t.min && score <= t.max).name;
+// ===============================
+// 티어 계산 기준 (최종본)
+// ===============================
+function scoreToTier(score) {
+  if (score <= 8) return "아이언";
+  if (score <= 21) return "브론즈";
+  if (score <= 34) return "실버";
+  if (score <= 40) return "골드";
+  if (score <= 45) return "플래티넘";
+  if (score <= 50) return "다이아몬드";
+  if (score <= 53) return "마스터";
+  if (score <= 57) return "그랜드마스터";
+  return "챌린저";
 }
 
-/* ===========================
-   페이지 이동
-=========================== */
+// 티어 이모지 매칭
+const tierEmoji = {
+  "아이언": "🪨",
+  "브론즈": "🥉",
+  "실버": "🥈",
+  "골드": "🥇",
+  "플래티넘": "💎",
+  "다이아몬드": "💠",
+  "마스터": "🎖",
+  "그랜드마스터": "🥇",
+  "챌린저": "👑"
+};
+
+// ===============================
+// 페이지 전환
+// ===============================
+let currentStep = 1;
+
 function showStep(step) {
   currentStep = step;
-  const pages = document.querySelectorAll(".question-page");
 
-  pages.forEach(page => {
-    page.classList.toggle("hidden", Number(page.dataset.step) !== step);
+  questionPages.forEach((page) => {
+    page.classList.toggle(
+      "hidden",
+      Number(page.dataset.step) !== step
+    );
   });
 
   stepIndicator.textContent = `${step} / 6`;
   updateProgressBar();
 }
 
-/* ===========================
-   진행 바 업데이트
-=========================== */
+// ===============================
+// 전체 진행도 업데이트
+// ===============================
 function updateProgressBar() {
   let answered = 0;
 
   for (let i = 1; i <= TOTAL_QUESTIONS; i++) {
     const yes = document.querySelector(`input[name="q${i}"][value="1"]:checked`);
-    const no  = document.querySelector(`input[name="q${i}"][value="0"]:checked`);
+    const no = document.querySelector(`input[name="q${i}"][value="0"]:checked`);
     if (yes || no) answered++;
   }
 
@@ -69,27 +97,41 @@ function updateProgressBar() {
   progressBar.style.width = `${ratio}%`;
 }
 
-/* ===========================
-   결과 계산
-=========================== */
+// ===============================
+// 설문 검증
+// ===============================
+function validateStep(step) {
+  const page = document.querySelector(`.question-page[data-step="${step}"]`);
+  const questions = page.querySelectorAll(".question");
+
+  for (let i = 0; i < questions.length; i++) {
+    const q = questions[i];
+    const name = q.querySelector("input").name;
+    const checked = document.querySelector(`input[name="${name}"]:checked`);
+    if (!checked) return false;
+  }
+  return true;
+}
+
+// ===============================
+// 결과 계산
+// ===============================
 function collectResults() {
   let totalScore = 0;
+  let categoryScores = [0, 0, 0, 0, 0, 0];
   let missing = [];
-
-  let categoryScores = [0, 0, 0, 0, 0, 0]; // 6개 영역
 
   for (let i = 1; i <= TOTAL_QUESTIONS; i++) {
     const yes = document.querySelector(`input[name="q${i}"][value="1"]:checked`);
-    const no  = document.querySelector(`input[name="q${i}"][value="0"]:checked`);
+    const no = document.querySelector(`input[name="q${i}"][value="0"]:checked`);
 
     if (!yes && !no) {
       missing.push(i);
       continue;
     }
-
     if (yes) {
       totalScore++;
-      const catIndex = Math.floor((i - 1) / QUESTIONS_PER_STEP);
+      const catIndex = Math.floor((i - 1) / 10);
       categoryScores[catIndex]++;
     }
   }
@@ -98,75 +140,88 @@ function collectResults() {
     return { error: true, missing };
   }
 
-  return { totalScore, categoryScores };
+  const overallRatio = (totalScore / TOTAL_QUESTIONS) * 100;
+  const overallTier = scoreToTier(totalScore);
+
+  const categoryResults = categories.map((cat, idx) => {
+    const score = categoryScores[idx];
+    const ratio = (score / 10) * 100;
+    const tier = scoreToTier(score * 6); // 10문항 → 60점 환산
+    return {
+      id: cat.id,
+      name: cat.name,
+      score,
+      max: 10,
+      ratio,
+      tier,
+    };
+  });
+
+  return {
+    error: false,
+    overall: {
+      score: totalScore,
+      ratio: overallRatio,
+      tier: overallTier,
+    },
+    categories: categoryResults,
+  };
 }
 
-/* ===========================
-   결과 렌더링
-=========================== */
-function renderResults(res) {
-  const score = res.totalScore;
-  const tier = getTier(score);
-  const ratio = ((score / 60) * 100).toFixed(1);
+// ===============================
+// 결과 렌더링
+// ===============================
+function renderResults(result) {
+  const overall = result.overall;
 
   overallBox.innerHTML = `
-    <div class="overall-header">
-      <div class="overall-tier">${tier}</div>
-      <div class="overall-ratio">${score}/60 (${ratio}%)</div>
+    <div class="overall-card">
+      <div class="overall-tier">
+        ${tierEmoji[overall.tier]} ${overall.tier}
+      </div>
+      <div class="overall-score">
+        총 ${overall.score} / 60문항 (${overall.ratio.toFixed(1)}%)
+      </div>
     </div>
   `;
 
-  /* 카테고리 결과 */
-  const categoryNames = ["피부/외모", "헤어", "패션/스타일", "향/청결", "운동/체형", "디테일"];
-
-  let items = "";
-
-  for (let i = 0; i < 6; i++) {
-    const cScore = res.categoryScores[i];
-    const percent = ((cScore / 10) * 100).toFixed(1);
-    const cTier = getTier(cScore);
-
-    const weak = cScore <= 5 ? "weak" : "";
-
-    items += `
-      <li class="category-item ${weak}">
-        <div class="cat-main">
-          <div class="cat-name">${categoryNames[i]}</div>
-          <div class="cat-count">${cScore} / 10 문항 관리 중</div>
-        </div>
-        <div class="cat-side">
-          <div class="cat-tier">${cTier}</div>
-          <div class="cat-ratio">${percent}%</div>
-        </div>
-      </li>
-    `;
-  }
-
-  catBox.innerHTML = `<ul class="category-list">${items}</ul>`;
+  // 카테고리 박스
+  categoryBox.innerHTML = result.categories
+    .map((cat) => {
+      return `
+        <li class="category-item">
+          <div class="cat-main">
+            <div class="cat-name">${cat.name}</div>
+            <div class="cat-count">${cat.score} / ${cat.max} 문항 관리 중</div>
+          </div>
+          <div class="cat-side">
+            <div class="cat-tier">${tierEmoji[cat.tier]} ${cat.tier}</div>
+            <div class="cat-ratio">${cat.ratio.toFixed(1)}%</div>
+          </div>
+        </li>
+      `;
+    })
+    .join("");
 }
 
-/* ===========================
-   EVENT
-=========================== */
-
+// ===============================
+// 이벤트 연결
+// ===============================
 startBtn.addEventListener("click", () => {
   introSection.classList.add("hidden");
   surveySection.classList.remove("hidden");
   showStep(1);
 });
 
-nextBtn.addEventListener("click", () => {
-  if (currentStep < 6) {
-    showStep(currentStep + 1);
+submitBtn.addEventListener("click", () => {
+  if (!validateStep(currentStep)) {
+    alert("아직 체크하지 않은 문항이 있어요!");
     return;
   }
 
   const result = collectResults();
-
   if (result.error) {
-    alert(`답변하지 않은 문항이 있습니다. (첫 미답변: ${result.missing[0]}번)`);
-    const pageIndex = Math.floor((result.missing[0] - 1) / 10) + 1;
-    showStep(pageIndex);
+    alert(`${result.missing[0]}번 문항이 체크되지 않았습니다.`);
     return;
   }
 
@@ -179,4 +234,21 @@ nextBtn.addEventListener("click", () => {
 
 retryBtn.addEventListener("click", () => {
   window.location.reload();
+});
+
+// 페이지 이동 버튼들
+document.querySelectorAll(".nextBtn").forEach((btn, idx) => {
+  btn.addEventListener("click", () => {
+    if (!validateStep(idx + 1)) {
+      alert("아직 체크하지 않은 문항이 있어요!");
+      return;
+    }
+    showStep(idx + 2);
+  });
+});
+
+document.querySelectorAll(".prevBtn").forEach((btn, idx) => {
+  btn.addEventListener("click", () => {
+    showStep(idx + 1);
+  });
 });
