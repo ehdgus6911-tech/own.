@@ -241,18 +241,22 @@ document.addEventListener("DOMContentLoaded", () => {
     const overallTier = scoreToTier(totalScore);
 
     const categoryResults = categories.map((cat, idx) => {
-      const score = categoryScores[idx];
-      const ratio = (score / QUESTIONS_PER_STEP) * 100;
-      const tier = scoreToTier(score);
-      return {
-        id: cat.id,
-        name: cat.name,
-        score,
-        max: QUESTIONS_PER_STEP,
-        ratio,
-        tier
-      };
-    });
+  const score = categoryScores[idx];
+  const ratio = (score / QUESTIONS_PER_STEP) * 100;
+
+  // ✅ 카테고리 점수(0~10)를 0~60 스케일로 변환해서 티어 계산
+  const scaledScore = score * (TOTAL_QUESTIONS / QUESTIONS_PER_STEP); // 10점 → 60점 만점 기준
+  const tier = scoreToTier(scaledScore);
+
+  return {
+    id: cat.id,
+    name: cat.name,
+    score,
+    max: QUESTIONS_PER_STEP,
+    ratio,
+    tier
+  };
+});
 
     return {
       error: false,
