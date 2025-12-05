@@ -285,3 +285,182 @@ html, body {
   margin-top: 26px;
   text-align: center;
 }
+
+/* =========================
+   결과 섹션 레이아웃 / 카드 스타일
+   ========================= */
+
+/* 결과 섹션 전체 여백 */
+.section-result {
+  margin-top: 40px;
+}
+
+/* 전체 티어 카드 */
+.overall-card {
+  margin-top: 16px;
+  padding: 22px 24px;
+  border-radius: 22px;
+  background: radial-gradient(circle at top left, rgba(140, 122, 255, 0.2), transparent 55%)
+              , radial-gradient(circle at bottom right, rgba(255, 138, 214, 0.18), transparent 55%)
+              , rgba(10, 12, 30, 0.96);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow:
+    0 18px 45px rgba(0, 0, 0, 0.7),
+    0 0 0 1px rgba(255, 255, 255, 0.03);
+}
+
+/* 전체 결과 카드 안의 헤더 (티어 배지 / 상위 % 등) */
+.overall-header {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-bottom: 16px;
+}
+
+.overall-tier-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 76px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.overall-tier-badge span {
+  margin-left: 6px;
+}
+
+.overall-ratio {
+  font-size: 14px;
+  color: #aeb4ff;
+}
+
+.overall-summary {
+  margin-top: 4px;
+  font-size: 13px;
+  line-height: 1.6;
+  color: #d6d9ff;
+}
+
+/* 결과 설명 텍스트 */
+.overall-desc {
+  margin-top: 14px;
+  font-size: 12px;
+  line-height: 1.7;
+  color: #b5b9ff;
+}
+
+/* ======================
+   카테고리 리스트 카드
+   ====================== */
+
+.category-results {
+  margin-top: 26px;
+}
+
+/* 리스트 자체를 column 카드 모양으로 */
+.category-list {
+  list-style: none;
+  margin: 0;
+  margin-top: 10px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* 각 카테고리 카드 */
+.category-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  border-radius: 16px;
+  background: rgba(8, 10, 26, 0.96);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.55);
+}
+
+/* 왼쪽 영역: 이름 + 몇 문항 관리 중 */
+.cat-main {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.cat-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.cat-count {
+  font-size: 12px;
+  color: #aeb4ff;
+}
+
+/* 오른쪽 영역: 티어 + 비율 */
+.cat-side {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 3px;
+}
+
+.cat-tier {
+  font-size: 12px;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.cat-ratio {
+  font-size: 11px;
+  color: #c5c9ff;
+}
+
+/* 약한 카테고리 강조 (빨간 테두리) */
+.category-item.weak {
+  border-color: #ff4d6a;
+  box-shadow:
+    0 0 0 1px rgba(255, 77, 106, 0.7),
+    0 12px 28px rgba(0, 0, 0, 0.8);
+}
+
+.category-item.weak .cat-name {
+  color: #ff9bb0;
+}
+
+/* 혹시 남아있는 기본 bullet 리스트가 있으면 숨기기 (안전장치) */
+#category-results > ul:not(.category-list) {
+  display: none;
+}
+
+/* 브랜드 메시지 카드 (하단) */
+.brand-block {
+  margin-top: 28px;
+  padding: 18px 18px 16px;
+  border-radius: 18px;
+  background: rgba(4, 6, 18, 0.96);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  text-align: center;
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.75);
+}
+
+.brand-block p {
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.7;
+  color: #cfd3ff;
+}
+
+.brand-block p strong {
+  font-weight: 700;
+  color: #ffffff;
+}
