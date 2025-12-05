@@ -484,29 +484,43 @@ document.addEventListener("DOMContentLoaded", () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   });
 
-  // 결과 보기
-  submitBtn.addEventListener("click", () => {
-    if (!validateStep(currentStep)) {
-      alert("현재 페이지의 모든 문항에 답변해 주세요.");
-      return;
-    }
+  // 👉 결과 보기 버튼
+submitBtn.addEventListener("click", () => {
+  // 1) 마지막 페이지(6페이지)도 모두 체크했는지 확인
+  if (!validateStep(currentStep)) {
+    // validateStep 안에서 이미 "답하지 않은 문항이 있습니다" 알림을 띄움
+    return;
+  }
 
-    const result = collectResults();
-    if (result.error) {
-      const firstMissing = result.missing[0];
-      const pageIndex = Math.floor((firstMissing - 1) / QUESTIONS_PER_STEP) + 1;
-      alert(
-        `답하지 않은 문항이 있습니다.\n\n첫 번째 미응답 문항 번호: ${firstMissing}번\n해당 페이지( ${pageIndex} / ${TOTAL_STEPS} )로 이동합니다.`
-      );
-      showStep(pageIndex);
-      return;
-    }
+  // 2) 전체 60문항 다시 검사하면서 점수 계산
+  const result = collectResults();
 
-    renderResults(result);
-    surveySection.classList.add("hidden");
-    resultSection.classList.remove("hidden");
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  });
+  if (result.error) {
+    // 하나라도 안 체크된 문항이 있으면 여기로 옴
+    const firstMissing = result.missing[0]; // 제일 먼저 빠진 문항 번호
+    const pageIndex = Math.floor((firstMissing - 1) / QUESTIONS_PER_STEP) + 1;
+
+    alert(
+      `답하지 않은 문항이 있습니다.\n\n` +
+      `${pageIndex}페이지로 이동해서 빠진 문항을 먼저 체크해주세요.\n` +
+      `(빠진 문항 번호: ${firstMissing}번)`
+    );
+
+    // 빠진 문항이 있는 페이지로 이동
+    showStep(pageIndex);
+    return;
+  }
+
+  // 3) 여기까지 왔다는 건 60문항 전부 체크 완료 + 점수 계산 끝
+  renderResults(result);
+
+  // 4) 설문 섹션 숨기고 결과 섹션 보여주기
+  surveySection.classList.add("hidden");
+  resultSection.classList.remove("hidden");
+
+  // 5) 결과 맨 위로 스크롤
+  window.scrollTo({ top: 0, behavior: "smooth" });
+});
 
   // 다시 하기
   retryBtn.addEventListener("click", () => {
