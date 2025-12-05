@@ -1,475 +1,287 @@
-/* ===============================
-   기본 세팅
-================================= */
-
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
+/* =========================
+   BASIC RESET
+========================= */
+* {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
-html,
-body {
+html, body {
+  width: 100%;
   height: 100%;
+  font-family: "Pretendard", -apple-system, BlinkMacSystemFont, sans-serif;
+  background: #0b0f1a;
+  color: #f5f5f7;
+  line-height: 1.6;
 }
 
-body {
-  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text",
-    system-ui, -sans-serif;
-  background: radial-gradient(circle at top, #20223a 0, #050515 50%, #020108 100%);
-  color: #f5f5ff;
-  line-height: 1.5;
-}
-
-/* 링크, 버튼 기본 */
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-button {
-  border: none;
-  cursor: pointer;
-}
-
-/* 숨김용 */
 .hidden {
-  display: none;
+  display: none !important;
 }
 
-/* ===============================
-   공통 레이아웃
-================================= */
-
-.page-wrapper {
-  min-height: 100vh;
-  padding: 40px 16px 60px;
-}
-
-.container {
-  max-width: 960px;
+.page-wrap {
+  max-width: 800px;
   margin: 0 auto;
+  padding: 24px 16px;
 }
 
-/* 섹션 카드 공통 */
-.section-card {
-  background: rgba(11, 12, 27, 0.96);
+/* =========================
+   HEADER
+========================= */
+.site-header {
+  text-align: left;
+  margin-bottom: 24px;
+}
+
+.site-brand {
+  font-size: 32px;
+  font-weight: 800;
+  color: #ffffff;
+}
+
+.site-tagline {
+  font-size: 14px;
+  color: #9aa0b8;
+  margin-top: 4px;
+}
+
+/* =========================
+   CARD BASE STYLE
+========================= */
+.card {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.08);
   border-radius: 20px;
-  border: 1px solid rgba(142, 160, 255, 0.18);
-  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.65);
-  padding: 26px 24px 30px;
-  margin-bottom: 28px;
+  padding: 28px 24px;
+  margin-bottom: 24px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.4);
 }
 
-/* 구분선 */
-.section-divider {
-  border-top: 1px dashed rgba(142, 150, 255, 0.35);
-  margin: 16px 0 18px;
+/* =========================
+   INTRO SECTION
+========================= */
+.intro-title {
+  font-size: 26px;
+  font-weight: 800;
+  margin-bottom: 22px;
 }
 
-/* 타이틀 */
-.section-title {
-  font-size: 22px;
+.intro-block {
+  margin-bottom: 28px;  /* 🔥 문단 간격 넓혀서 가독성 확실히 개선 */
+}
+
+.intro-subtitle {
+  font-size: 18px;
   font-weight: 700;
   margin-bottom: 10px;
 }
 
-.section-subtitle {
+.intro-list,
+.intro-tier-list {
+  list-style: none;
+  padding-left: 0;
+}
+
+.intro-list li,
+.intro-tier-list li {
+  margin-bottom: 6px;
+  font-size: 15px;
+}
+
+.intro-note {
   font-size: 14px;
-  color: #c7c9ff;
-  margin-bottom: 4px;
+  margin-top: 8px;
+  color: #c7cbe1;
 }
 
-/* 리스트 */
-.section-list {
-  margin-left: 18px;
-  margin-bottom: 10px;
+.intro-cta {
+  margin-top: 32px;
+  text-align: center;
 }
 
-.section-list li {
-  font-size: 14px;
-  margin-bottom: 4px;
-}
-
-/* 강조 텍스트 */
-.text-accent {
-  color: #c7d2ff;
-  font-weight: 500;
-}
-
-/* 작은 캡션 */
-.caption {
-  font-size: 12px;
-  color: #9fa4ff;
-}
-
-/* ===============================
-   CTA 버튼
-================================= */
-
+/* =========================
+   BUTTONS
+========================= */
 .primary-btn {
   width: 100%;
-  padding: 16px 20px;
-  margin-top: 22px;
-  border-radius: 999px;
-  background: linear-gradient(90deg, #8c7bff, #ff84e8);
-  color: #ffffff;
-  font-weight: 600;
-  font-size: 15px;
-  text-align: center;
-  box-shadow: 0 10px 35px rgba(149, 117, 255, 0.6);
-  transition: transform 0.12s ease-out, box-shadow 0.12s ease-out,
-    opacity 0.12s ease-out;
+  padding: 16px;
+  border: none;
+  border-radius: 30px;
+  font-size: 17px;
+  font-weight: 700;
+  color: white;
+  background: linear-gradient(90deg, #7b5cff, #ff77d9);
+  cursor: pointer;
+  margin-top: 10px;
+  transition: opacity 0.2s;
 }
 
 .primary-btn:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 16px 38px rgba(149, 117, 255, 0.7);
-  opacity: 0.96;
+  opacity: 0.85;
 }
 
-.primary-btn:active {
-  transform: translateY(0);
-  box-shadow: 0 6px 20px rgba(149, 117, 255, 0.6);
-}
-
-/* secondary */
 .secondary-btn {
-  width: 100%;
-  padding: 12px 16px;
-  border-radius: 999px;
-  border: 1px solid rgba(153, 143, 255, 0.4);
+  padding: 14px 20px;
+  border-radius: 30px;
+  border: 1px solid #51556c;
   background: transparent;
-  color: #e4e4ff;
-  font-size: 13px;
-  font-weight: 500;
-  margin-top: 18px;
-  transition: background 0.12s ease-out, color 0.12s ease-out;
+  color: #d8d8e3;
+  cursor: pointer;
+  font-size: 15px;
 }
 
 .secondary-btn:hover {
-  background: rgba(153, 143, 255, 0.08);
+  background: rgba(255,255,255,0.08);
 }
 
-/* ===============================
-   인트로 섹션
-================================= */
+/* =========================
+   SURVEY HEADER
+========================= */
+.survey-header {
+  margin-bottom: 20px;
+}
 
-.brand-title {
+.survey-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.survey-title {
+  font-size: 22px;
+  font-weight: 800;
+}
+
+.survey-step {
+  font-size: 16px;
+  font-weight: 700;
+  color: #b1b7d4;
+}
+
+/* Progress bar */
+.survey-progress {
+  width: 100%;
+  height: 8px;
+  background: rgba(255,255,255,0.08);
+  border-radius: 6px;
+  margin: 12px 0;
+}
+
+.survey-progress-bar {
+  width: 0%;
+  height: 100%;
+  border-radius: 6px;
+  background: linear-gradient(90deg, #7b5cff, #ff77d9);
+  transition: width 0.3s;
+}
+
+/* Step label */
+.survey-page-info {
   font-size: 13px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: #9ca3ff;
-  margin-bottom: 6px;
+  color: #9ea3bf;
+  margin-bottom: 10px;
 }
 
-.brand-headline {
-  font-size: 24px;
+/* =========================
+   QUESTIONS
+========================= */
+.section-page-title {
+  font-size: 18px;
   font-weight: 700;
   margin-bottom: 14px;
 }
 
-.brand-description {
-  font-size: 14px;
-  color: #d6daff;
-  margin-bottom: 4px;
-}
-
-/* 티어 안내 박스 */
-.tier-guide-card {
-  background: radial-gradient(circle at top left, #272568 0, #0c0f24 45%, #050613 100%);
-  border-radius: 18px;
-  border: 1px solid rgba(165, 174, 255, 0.4);
-  padding: 18px 18px 20px;
-  margin-top: 18px;
-}
-
-.tier-guide-title {
-  font-size: 14px;
-  font-weight: 600;
-  margin-bottom: 10px;
-}
-
-.tier-list {
-  margin-left: 16px;
-}
-
-.tier-list li {
-  font-size: 13px;
-  margin-bottom: 4px;
-}
-
-/* 운영자 한 마디 */
-.operator-title {
-  font-size: 14px;
-  font-weight: 600;
-  margin-bottom: 8px;
-}
-
-.operator-text {
-  font-size: 13px;
-  color: #c8ccff;
-}
-
-/* ===============================
-   설문 섹션
-================================= */
-
-.survey-card {
-  background: rgba(9, 10, 29, 0.96);
-  border-radius: 20px;
-  border: 1px solid rgba(130, 143, 255, 0.3);
-  padding: 24px 20px 26px;
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
-}
-
-.survey-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 12px;
-}
-
-.survey-title {
-  font-size: 17px;
-  font-weight: 600;
-}
-
-.survey-step {
-  font-size: 13px;
-  color: #b3b9ff;
-}
-
-/* 진행도 바 */
-.survey-progress {
-  margin: 6px 0 16px;
-  width: 100%;
-  height: 6px;
-  border-radius: 999px;
-  background: rgba(46, 56, 112, 0.7);
-  overflow: hidden;
-}
-
-.survey-progress-bar {
-  height: 100%;
-  width: 0%;
-  border-radius: 999px;
-  background: linear-gradient(90deg, #8c7bff, #ff84e8);
-  transition: width 0.25s ease-out;
-}
-
-/* 질문 페이지 */
-.section-sub-label {
-  font-size: 13px;
-  color: #a5adff;
-  margin-bottom: 4px;
-}
-
-.section-page-title {
-  font-size: 16px;
-  font-weight: 600;
-  margin-bottom: 10px;
-}
-
-/* 질문 하나 */
 .question {
-  padding: 12px 10px 12px;
-  border-radius: 12px;
-  background: rgba(19, 21, 46, 0.9);
-  border: 1px solid rgba(104, 118, 255, 0.2);
-  margin-bottom: 10px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.08);
+  padding: 16px;
+  border-radius: 14px;
+  margin-bottom: 16px;
 }
 
 .question p {
-  font-size: 13px;
-  margin-bottom: 8px;
-}
-
-/* 예 / 아니오 라디오 */
-.question-options {
-  display: flex;
-  gap: 14px;
-  font-size: 13px;
+  margin-bottom: 10px;
+  font-size: 15px;
 }
 
 .question-options label {
-  display: flex;
-  align-items: center;
-  gap: 5px;
+  margin-right: 16px;
+  font-size: 15px;
   cursor: pointer;
 }
 
 .question-options input {
-  accent-color: #8c7bff;
+  margin-right: 6px;
+  accent-color: #a679ff;
 }
 
-/* 페이지 이동 버튼 그룹 */
+/* =========================
+   PAGE NAVIGATION
+========================= */
 .page-nav {
   display: flex;
-  gap: 8px;
-  margin-top: 16px;
-}
-
-.page-nav .secondary-btn {
-  flex: 1;
-}
-
-.page-nav .primary-btn {
-  flex: 1;
-  margin-top: 0;
-}
-
-/* ===============================
-   결과 섹션
-================================= */
-
-.result-card {
-  background: rgba(9, 10, 29, 0.97);
-  border-radius: 20px;
-  border: 1px solid rgba(138, 152, 255, 0.35);
-  padding: 24px 18px 26px;
-  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.6);
-}
-
-.result-title {
-  font-size: 18px;
-  font-weight: 600;
-  margin-bottom: 14px;
-}
-
-/* 전체 티어 카드 */
-.overall-card {
-  background: radial-gradient(circle at top left, #343b80 0, #131632 45%, #050616 100%);
-  border-radius: 18px;
-  border: 1px solid rgba(189, 202, 255, 0.6);
-  padding: 16px 16px 18px;
-  margin-bottom: 18px;
-}
-
-.overall-tier {
-  font-size: 18px;
-  font-weight: 700;
-  margin-bottom: 6px;
-}
-
-.overall-score {
-  font-size: 13px;
-  color: #dde1ff;
-}
-
-/* 카테고리 리스트 */
-.category-list {
-  list-style: none;
-  margin-top: 6px;
-}
-
-.category-item {
-  display: flex;
   justify-content: space-between;
-  align-items: center;
-  padding: 10px 12px;
-  border-radius: 14px;
-  margin-bottom: 8px;
-  background: linear-gradient(90deg, rgba(19, 22, 52, 0.9), rgba(12, 15, 32, 0.9));
-  border: 1px solid rgba(110, 122, 255, 0.35);
+  margin-top: 24px;
 }
 
-.cat-main {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-
-.cat-name {
-  font-size: 13px;
-  font-weight: 500;
-}
-
-.cat-count {
-  font-size: 11px;
-  color: #b9c0ff;
-}
-
-.cat-side {
-  text-align: right;
-}
-
-.cat-tier {
-  font-size: 13px;
-  font-weight: 600;
-}
-
-.cat-ratio {
-  font-size: 11px;
-  color: #c6cdff;
-}
-
-/* CTA 블록 */
-.product-cta {
-  margin-top: 18px;
-  padding: 18px 14px 16px;
-  border-radius: 18px;
-  background: radial-gradient(circle at top, rgba(95, 108, 255, 0.14), rgba(13, 14, 34, 0.96));
-  border: 1px solid rgba(157, 169, 255, 0.5);
+/* =========================
+   RESULT PAGE
+========================= */
+.section-result {
   text-align: center;
 }
 
-.product-cta-title {
-  font-size: 13px;
-  font-weight: 600;
-  margin-bottom: 6px;
+.section-title {
+  font-size: 24px;
+  font-weight: 800;
+  margin-bottom: 20px;
 }
 
-.product-cta-desc {
-  font-size: 12px;
-  color: #c7cdff;
-  margin-bottom: 10px;
+.overall-result {
+  font-size: 20px;
+  font-weight: 800;
+  margin-bottom: 20px;
 }
 
-.product-cta-note {
-  font-size: 11px;
-  color: #9ca2ff;
-  margin-top: 5px;
-}
-
-/* 하단 브랜드 메시지 */
-.brand-block {
+.category-results {
   margin-top: 18px;
-  padding-top: 14px;
-  border-top: 1px dashed rgba(130, 141, 255, 0.4);
-  font-size: 12px;
-  color: #cbd0ff;
+  text-align: left;
+  padding-left: 10px;
 }
 
-.brand-block strong {
-  font-weight: 600;
+.brand-block {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.09);
+  padding: 20px;
+  border-radius: 14px;
+  margin-top: 24px;
+  text-align: center;
+  line-height: 1.5;
+}
+
+.product-cta {
+  margin-top: 28px;
+  text-align: center;
+}
+
+.product-link {
+  display: inline-block;
+  margin-top: 6px;
+  font-size: 17px;
+  font-weight: 700;
+  color: #ff94f5;
+  text-decoration: none;
+}
+
+.product-note {
+  margin-top: 4px;
+  font-size: 12px;
+  color: #9096b3;
 }
 
 .result-footer {
-  margin-top: 18px;
+  margin-top: 26px;
   text-align: center;
-}
-
-/* ===============================
-   반응형
-================================= */
-
-@media (min-width: 768px) {
-  .page-wrapper {
-    padding: 48px 20px 80px;
-  }
-
-  .section-card {
-    padding: 30px 32px 34px;
-  }
-
-  .survey-card {
-    padding: 28px 26px 30px;
-  }
-
-  .result-card {
-    padding: 28px 24px 30px;
-  }
 }
