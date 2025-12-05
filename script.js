@@ -132,18 +132,18 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   // 점수 → 티어 변환
-  function scoreToTier(score) {
-    if (score <= 8) return "Iron";
-    if (score <= 21) return "Bronze";
-    if (score <= 34) return "Silver";
-    if (score <= 40) return "Gold";
-    if (score <= 45) return "Platinum";
-    if (score <= 50) return "Diamond";
-    if (score <= 53) return "Master";
-    if (score <= 57) return "Grandmaster";
-    return "Challenger";
-  }
-
+ function scoreToTier(score) {
+  if (score <= 8) return "iron";                 // 0 ~ 8
+  if (score <= 21) return "bronze";              // 9 ~ 21
+  if (score <= 34) return "silver";              // 22 ~ 34
+  if (score <= 40) return "gold";                // 35 ~ 40
+  if (score <= 45) return "platinum";            // 41 ~ 45
+  if (score <= 50) return "diamond";             // 46 ~ 50
+  if (score <= 53) return "master";              // 51 ~ 53
+  if (score <= 57) return "grandmaster";         // 54 ~ 57
+  return "challenger";                           // 58 ~ 60
+}
+  
   // =====================================
   // 페이지 이동
   // =====================================
@@ -240,12 +240,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const overallRatio = (totalScore / TOTAL_QUESTIONS) * 100;
     const overallTier = scoreToTier(totalScore);
 
-    const categoryResults = categories.map((cat, idx) => {
+   const categoryResults = categories.map((cat, idx) => {
   const score = categoryScores[idx];
   const ratio = (score / QUESTIONS_PER_STEP) * 100;
 
-  // ✅ 카테고리 점수(0~10)를 0~60 스케일로 변환해서 티어 계산
-  const scaledScore = score * (TOTAL_QUESTIONS / QUESTIONS_PER_STEP); // 10점 → 60점 만점 기준
+  // 🔥 0~10점 → 0~60점으로 환산해서 티어 계산
+  const scaledScore = score * 6; // 10점 만점 ×6 = 60점
   const tier = scoreToTier(scaledScore);
 
   return {
@@ -254,7 +254,7 @@ document.addEventListener("DOMContentLoaded", () => {
     score,
     max: QUESTIONS_PER_STEP,
     ratio,
-    tier
+    tier,
   };
 });
 
@@ -270,101 +270,161 @@ document.addEventListener("DOMContentLoaded", () => {
     };
   }
 
-  // =====================================
-  // 결과 렌더링
-  // =====================================
+  // ======================
+// 결과 렌더링
+// ======================
+function renderResults(result) {
+  const overallBox = document.getElementById("overall-result");
+  const catBox = document.getElementById("category-results");
 
-  function renderResults(result) {
-    if (!overallBox || !categoryBox) return;
+  const overall = result.overall;
+  const meta = tierMeta[overall.tier]; // tierMeta는 기존 그대로 사용
 
-    const overall = result.overall;
-    const cats = result.categories;
-    const meta = tierMeta[overall.tier];
+  const overallScoreText = `${overall.score} / ${overall.max}`;
+  const ratioText = `${overall.ratio.toFixed(1)}%`;
 
-    const weakCats = cats.filter(
-      (cat) => cat.ratio + 10 < overall.ratio
-    );
-    let weakMessage = "";
+  // 상대적으로 약한 카테고리 (전체 비율보다 10%p 이상 낮은 영역)
+  const weak = result.categories.filter(
+    (cat) => cat.ratio < overall.ratio - 10
+  );
 
-    if (weakCats.length > 0) {
-      const names = weakCats.map((c) => c.name).join(" · ");
-      weakMessage = `
-        <p class="weak-msg">
-          <strong>${names}</strong> 영역의 관리가 상대적으로 약한 편입니다.<br>
-          이 영역을 보완하면 전체 티어가 더 빠르게 올라갈 수 있어요.
-        </p>
-      `;
-    } else {
-      weakMessage = `
-        <p class="weak-msg">
-          6개 영역의 밸런스가 고르게 잡혀 있습니다. 지금의 리듬을 유지하면서, 나만의 개성을 더해보세요.
-        </p>
-      `;
-    }
+  // 약한 영역 이름 모으기
+  let weakSummaryText = "";
+  if (weak.length > 0) {
+    const names = weak.map((c) => c.name).join(" · ");
+    weakSummaryText = `현재 기준으로 상대적으로 약한 영역은 <strong>${names}</strong> 입니다. 이 영역들을 보완하면 전체 티어가 더 빨라게 상승할 수 있어요.`;
+  } else {
+    weakSummaryText =
+      "모든 영역이 전체 평균과 비슷하거나 그 이상입니다. 지금의 리듬을 유지하면서, 장기적인 지속 가능성을 점검해보세요.";
+  }
 
-    // 전체 결과 카드
-    overallBox.innerHTML = `
-      <div class="overall-card">
-        <div class="overall-header">
-          <div class="overall-tier-main">
-            <span class="tier-emoji">${meta.emoji}</span>
-            <span class="tier-name">${meta.name}</span>
-            <span class="tier-range">${meta.range}</span>
-          </div>
-          <div class="tier-percentile">상위 ${meta.percentile}</div>
+  // 티어 메타에서 텍스트 꺼내기 (없는 건 비워두기)
+  const emoji = meta?.emoji || "";
+  const title = meta?.title || ""; // 예: "Master"
+  const range = meta?.range || ""; // 예: "50–53점"
+  const percentile = meta?.percentile || ""; // 예: "상위 8%"
+
+  const currentText = meta?.current || ""; // 현재 상태 설명
+  const messageText = meta?.message || ""; // OWN 메시지
+  const problems = meta?.problems || []; // 문제 리스트 []
+  const actions = meta?.actions || []; // 개선 방향 리스트 []
+  const summary = meta?.summary || ""; // 마지막 요약 문장
+
+  // 문제 리스트 HTML
+  const problemsHtml =
+    problems.length > 0
+      ? `<ul class="overall-list">${problems
+          .map((p) => `<li>${p}</li>`)
+          .join("")}</ul>`
+      : "";
+
+  // 개선 방향 HTML
+  const actionsHtml =
+    actions.length > 0
+      ? `<ul class="overall-list">${actions
+          .map((a) => `<li>${a}</li>`)
+          .join("")}</ul>`
+      : "";
+
+  // 🔹 전체 결과 카드 (큰 박스 + 안쪽 티어 박스 + 구분선 구조)
+  overallBox.innerHTML = `
+    <div class="overall-card">
+      <!-- 티어 헤더 (작은 그라데이션 박스) -->
+      <div class="overall-tier-chip">
+        <div class="overall-tier-main">
+          <span class="overall-tier-emoji">${emoji}</span>
+          <span class="overall-tier-title">${meta?.label || ""}</span>
         </div>
-
-        <div class="overall-body">
-          <p class="overall-score">
-            전체 문항 중 <strong>${overall.score}</strong>개를 관리하고 있습니다.
-            <span class="overall-ratio">(${overall.score} / ${overall.max}, ${overall.ratio.toFixed(
-      1
-    )}%)</span>
-          </p>
-          <p class="overall-summary">
-            ${meta.summary}
-          </p>
-          ${weakMessage}
+        <div class="overall-tier-sub">
+          <span>${range}</span>
+          <span class="dot-separator">·</span>
+          <span>${percentile}</span>
         </div>
-
-        <div class="overall-brand-message">
-          <p>${meta.brandMessage}</p>
+        <div class="overall-tier-score">
+          ${overallScoreText} <span class="overall-tier-score-ratio">(${ratioText})</span>
         </div>
       </div>
-    `;
 
-    // 카테고리별 결과 카드
-    const catItems = cats
-      .map((cat) => {
-        const catMeta = tierMeta[cat.tier];
-        const isWeak = cat.ratio + 10 < overall.ratio;
+      <!-- 현재 상태 블록 -->
+      <div class="overall-block">
+        <h3 class="overall-block-title">🔥 현재 상태</h3>
+        <p class="overall-text">
+          ${currentText}
+        </p>
+      </div>
 
-        return `
-          <li class="category-item${isWeak ? " category-item--weak" : ""}">
-            <div class="cat-main">
-              <div class="cat-name">${cat.name}</div>
-              <div class="cat-count">
-                ${cat.score} / ${cat.max} 문항 관리 중
-              </div>
+      <div class="overall-divider"></div>
+
+      <!-- OWN 메시지 블록 -->
+      <div class="overall-block">
+        <div class="overall-block-caption">🌿 OWN 메시지</div>
+        <p class="overall-text">
+          ${messageText}
+        </p>
+      </div>
+
+      <div class="overall-divider"></div>
+
+      <!-- 문제점 & 개선 방향 -->
+      <div class="overall-block">
+        <h3 class="overall-block-title">자주 나타나는 패턴</h3>
+        ${problemsHtml}
+      </div>
+
+      <div class="overall-block">
+        <h3 class="overall-block-title">🎯 개선 방향</h3>
+        ${actionsHtml}
+        ${
+          summary
+            ? `<p class="overall-text overall-summary">${summary}</p>`
+            : ""
+        }
+      </div>
+
+      <div class="overall-divider"></div>
+
+      <!-- 상대적으로 약한 영역 요약 -->
+      <div class="overall-block">
+        <h3 class="overall-block-title">약한 영역 요약</h3>
+        <p class="overall-text">
+          ${weakSummaryText}
+        </p>
+      </div>
+    </div>
+  `;
+
+  // 🔹 카테고리별 카드 (빛나는 그라데이션 + 약한 영역 빨간 테두리)
+  const catItems = result.categories
+    .map((cat) => {
+      const catTier = tierMeta[cat.tier];
+      const isWeak = weak.some((w) => w.id === cat.id);
+
+      return `
+        <li class="category-card ${isWeak ? "category-card-weak" : ""}">
+          <div class="category-main">
+            <div class="category-name">${cat.name}</div>
+            <div class="category-count">
+              ${cat.score} / ${cat.max} 문항 관리 중
             </div>
-            <div class="cat-side">
-              <div class="cat-tier">
-                <span class="cat-tier-emoji">${catMeta.emoji}</span>
-                <span class="cat-tier-name">${catMeta.name}</span>
-              </div>
-              <div class="cat-ratio">${cat.ratio.toFixed(1)}%</div>
+          </div>
+          <div class="category-side">
+            <div class="category-tier">
+              <span class="category-tier-emoji">${catTier?.emoji || ""}</span>
+              <span class="category-tier-label">${catTier?.label || ""}</span>
             </div>
-          </li>
-        `;
-      })
-      .join("");
+            <div class="category-ratio">${cat.ratio.toFixed(1)}%</div>
+          </div>
+        </li>
+      `;
+    })
+    .join("");
 
-    categoryBox.innerHTML = `
-      <ul class="category-list">
-        ${catItems}
-      </ul>
-    `;
-  }
+  catBox.innerHTML = `
+    <ul class="category-list">
+      ${catItems}
+    </ul>
+  `;
+}
 
   // =====================================
   // 설문 리셋
